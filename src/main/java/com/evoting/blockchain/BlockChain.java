@@ -103,7 +103,7 @@ public class BlockChain {
             blocks.add(newBlock);
             Block b = new Block();
             try {
-                if (b.persistBlock(newBlock))
+                if (newBlock.persistBlock(newBlock))
                     System.out.println(newBlock.getHeight() + " block persisted");
                 else
                     System.out.println(newBlock.getHeight() + " block persist failed");

@@ -2,13 +2,16 @@ package com.evoting.blockchain;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.InstanceCreator;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.lang.reflect.Type;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,14 +30,14 @@ public class SyncBlock {
     }
 
     public BlockChain getBc(){
-        return bc;
+        return this.bc;
     }
 
     public Block getObjectBlocks(String path){
-//        GsonBuilder builder = new GsonBuilder();
-//        builder.registerTypeAdapter(java.security.PublicKey.class, new InterfaceAdapter());
-//        Gson gson = builder.create();
-        Gson gson = new Gson();
+        GsonBuilder builder = new GsonBuilder();
+        builder.registerTypeAdapter(java.security.PublicKey.class, new IdInstanceCreator());
+        Gson gson = builder.create();
+//        Gson gson = new Gson();
         try {
             return gson.fromJson(new FileReader(path), Block.class);
         }
@@ -59,6 +62,7 @@ public class SyncBlock {
                     for (String path: synclocalPaths) {
                        bc.addBlock(getObjectBlocks(path), false);
                     }
+
                     return getBc();
                 }
             }
@@ -91,5 +95,27 @@ public class SyncBlock {
 
     public boolean sync() {
         return syncPeers();
+    }
+}
+
+class IdInstanceCreator implements InstanceCreator<PublicKey> {
+    public java.security.PublicKey createInstance(Type type) {
+        return new PublicKey() {
+
+            @Override
+            public String getAlgorithm() {
+                return null;
+            }
+
+            @Override
+            public String getFormat() {
+                return null;
+            }
+
+            @Override
+            public byte[] getEncoded() {
+                return new byte[0];
+            }
+        };
     }
 }

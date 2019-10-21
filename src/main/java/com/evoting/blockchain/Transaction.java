@@ -10,6 +10,8 @@ public class Transaction {
     public String transactionId;
     public PublicKey sender;
     public PublicKey receiver;
+    public String sender_key;
+    public String receiver_key;
     public float value;
     public byte[] signature;
     private static int sequence = 0;
@@ -21,6 +23,8 @@ public class Transaction {
         this.receiver = to;
         this.value = value;
         this.inputs = inputs;
+        this.sender_key = from.toString();
+        this.receiver_key = to.toString();
     }
 
     public String calculateHash() {

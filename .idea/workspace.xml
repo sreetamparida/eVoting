@@ -3,6 +3,23 @@
   <component name="ChangeListManager">
     <list default="true" id="e5727a2c-299e-4da4-82a6-0530d697ef6d" name="Default Changelist" comment="Updated Structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Block.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Block.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/BlockChain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/SyncBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/SyncBlock.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Transaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Transaction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Block.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/BlockChain.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Candidate.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Dealer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Shamir$SecretShare.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Shamir.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/StringUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Transaction.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TransactionInput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/TransactionOutput.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Voter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/Wallet.class" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +55,27 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="Node" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.evoting.blockchain.Node" />
+      <module name="eVoting" />
+      <option name="PROGRAM_PARAMETERS" value="5000" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.evoting.blockchain.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Node" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -48,7 +86,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571592575874</updated>
-      <workItem from="1571592578994" duration="990000" />
+      <workItem from="1571592578994" duration="9031000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Structure">
       <created>1571592826693</created>

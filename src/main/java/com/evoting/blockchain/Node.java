@@ -35,12 +35,14 @@ public class Node {
         SyncBlock syncBlock = new SyncBlock();
         Gson gson = new Gson();
 
+        Wallet coinbase = new Wallet();
+        Wallet dealer = new Wallet();
+        Block lastBlock;
+
         try {
             if (!file.exists()) {
                 Block genesis = new Block().createGenesisBlock();
 
-                Wallet coinbase = new Wallet();
-                Wallet dealer = new Wallet();
                 Float coin = 1000f;
 
                 genesisTransaction = new Transaction(coinbase.publicKey, dealer.publicKey, coin, null);
@@ -51,21 +53,20 @@ public class Node {
                 genesis.addTransaction(genesisTransaction);
                 blockChain.addBlock(genesis, true);
                 blocks.add(genesis);
-            } else {
-                Wallet walletB = new Wallet();
-                Wallet walletA = new Wallet();
-                Block newBlock[] = new Block[10];
-                for (int j = 0; j < 10; j++) {
-                    localChain = syncBlock.syncLocal();
-                    Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
-
-                    newBlock[j] = new Block(lastBlock.getHash(), lastBlock.getHeight());
-                    for (int i = 0; i < 5; i++) {
-                        newBlock[j].addTransaction(walletA.sendFunds(walletB.publicKey, 1f, false));
-                    }
-                    blockChain.addBlock(newBlock[j], true);
-//                    System.out.println("Funds added to voter: " + (j+1));
+            }
+            Wallet walletA = new Wallet();
+            Block newBlock[] = new Block[10];
+            System.out.println(dealer.publicKey);
+            for (int j = 0; j < 10; j++) {
+                localChain = syncBlock.syncLocal();
+                System.out.println("size:----"+localChain.blocks.size());
+                lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
+                newBlock[j] = new Block(lastBlock.getHash(), lastBlock.getHeight());
+                for (int i = 0; i < 5; i++) {
+                    newBlock[j].addTransaction(dealer.sendFunds(walletA.publicKey, 1f, false));
                 }
+                blockChain.addBlock(newBlock[j], true);
+                System.out.println("Funds added to : ------------------------------" + (j+1));
             }
         }
         catch (Exception e){

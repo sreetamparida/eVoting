@@ -34,7 +34,7 @@ public class Block {
 
             this.height = prevHeight + 1;
 
-//            this.hash = CryptoUtil.calculateHash(previousHash, blockHeader.getTimestamp(), blockHeader.getNonce());
+            this.hash = CryptoUtil.calculateHash(previousHash, blockHeader.getTimestamp(), blockHeader.getNonce());
         }
     }
 
@@ -79,19 +79,19 @@ public class Block {
     public boolean persistBlock(Block block) throws IOException {
         String chainBlockDir = Config.chainBlockDir;
         File file = new File(chainBlockDir);
-        Gson gson = new GsonBuilder().serializeNulls().create();
+        Gson gson = new GsonBuilder().create();
 
         try{
             file.mkdirs();
             if(file.exists()){
                 System.out.println("Chaindata folder created");
                 File fileTemp = new File(file,block.height+".json");
-                System.out.print(fileTemp.toURI());
+                System.out.println(fileTemp.toURI());
                 FileWriter fw = new FileWriter(fileTemp);
                 gson.toJson(block, fw);
                 fw.flush();
                 fw.close();
-                System.out.print(gson.toJson(block));
+//                System.out.println(gson.toJson(block));
                 return true;
             }
             else {
