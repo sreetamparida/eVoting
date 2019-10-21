@@ -55,17 +55,19 @@ public class Node {
                 blocks.add(genesis);
             }
             Wallet walletA = new Wallet();
-            Block newBlock[] = new Block[10];
+            Block newBlock;
             System.out.println(dealer.publicKey);
             for (int j = 0; j < 10; j++) {
                 localChain = syncBlock.syncLocal();
                 System.out.println("size:----"+localChain.blocks.size());
                 lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
-                newBlock[j] = new Block(lastBlock.getHash(), lastBlock.getHeight());
+                System.out.println("height last-------------"+lastBlock.getHeight());
+                newBlock = new Block(lastBlock.getHash(), lastBlock.getHeight());
                 for (int i = 0; i < 5; i++) {
-                    newBlock[j].addTransaction(dealer.sendFunds(walletA.publicKey, 1f, false));
+                    newBlock.addTransaction(dealer.sendFunds(walletA.publicKey, 1f, false));
                 }
-                blockChain.addBlock(newBlock[j], true);
+                System.out.println("height-------------"+newBlock.getHeight());
+                blockChain.addBlock(newBlock, true);
                 System.out.println("Funds added to : ------------------------------" + (j+1));
             }
         }

@@ -20,7 +20,7 @@ import java.util.stream.Stream;
 public class SyncBlock {
 
     private ArrayList<String> synclocalPaths;
-    private BlockChain bc = new BlockChain();
+    private BlockChain bc = new BlockChain();;
 
     public SyncBlock(){
     }
@@ -59,9 +59,16 @@ public class SyncBlock {
                     this.synclocalPaths = (ArrayList<String>) walks.filter(Files::isRegularFile)
                             .map(x -> x.toString())
                             .collect(Collectors.toList());
-                    for (String path: synclocalPaths) {
-                       bc.addBlock(getObjectBlocks(path), false);
-                    }
+                    int len_path = synclocalPaths.size();
+                    String path = "chaindata/"+len_path+".json";
+
+                    bc.addBlock(getObjectBlocks(path), false);
+
+//                    for (int i =1; i<=len_path;i++) {
+//                        String path = "chaindata/"+i+".json";
+//                        System.out.println(path);
+//                        bc.addBlock(getObjectBlocks(path), false);
+//                    }
 
                     return getBc();
                 }
