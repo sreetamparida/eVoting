@@ -61,14 +61,14 @@ public class Node {
                 localChain = syncBlock.syncLocal();
                 System.out.println("size:----"+localChain.blocks.size());
                 lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
-                System.out.println("height last-------------"+lastBlock.getHeight());
+//                System.out.println("height last-------------"+lastBlock.getHeight());
                 newBlock = new Block(lastBlock.getHash(), lastBlock.getHeight());
                 for (int i = 0; i < 5; i++) {
                     newBlock.addTransaction(dealer.sendFunds(walletA.publicKey, 1f, false));
                 }
-                System.out.println("height-------------"+newBlock.getHeight());
+//                System.out.println("height-------------"+newBlock.getHeight());
                 blockChain.addBlock(newBlock, true);
-                System.out.println("Funds added to : ------------------------------" + (j+1));
+//                System.out.println("Funds added to : ------------------------------" + (j+1));
             }
         }
         catch (Exception e){

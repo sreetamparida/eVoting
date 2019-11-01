@@ -3,14 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e5727a2c-299e-4da4-82a6-0530d697ef6d" name="Default Changelist" comment="Updated Structure">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/BlockChain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/BlockChain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/SyncBlock.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/SyncBlock.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/BlockChain.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/BlockChain.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/IdInstanceCreator$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/IdInstanceCreator$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/IdInstanceCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/IdInstanceCreator.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/Node.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/SyncBlock.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/SyncBlock.class" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +27,9 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
     <property name="settings.editor.selected.configurable" value="configurable.group.language" />
   </component>
   <component name="RunDashboard">
@@ -78,7 +75,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1571592575874</updated>
-      <workItem from="1571592578994" duration="13137000" />
+      <workItem from="1571592578994" duration="17557000" />
+      <workItem from="1572595165498" duration="31000" />
     </task>
     <task id="LOCAL-00001" summary="Updated Structure">
       <created>1571592826693</created>
@@ -98,7 +96,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
