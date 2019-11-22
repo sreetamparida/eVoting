@@ -22,6 +22,7 @@ public class Home {
     static int electionid = 0;
     static int flag = 0;
     public static Transaction genesisTransaction;
+    public static Dealer dealer;
 
     public static int getid(){
         return electionid++;
@@ -117,7 +118,7 @@ public class Home {
             SyncBlock syncBlock = new SyncBlock();
 
             Wallet coinbase = new Wallet();
-            Dealer dealer = new Dealer();
+            dealer = new Dealer();
             Block lastBlock;
 
             try {
@@ -163,6 +164,7 @@ public class Home {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
+            dealer.candidate.add(new Candidate());
             return new ModelAndView(model, "add_candidate.vm");
         }, new VelocityTemplateEngine());
 

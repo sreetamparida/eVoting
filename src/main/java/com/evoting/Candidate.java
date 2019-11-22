@@ -4,7 +4,7 @@ public class Candidate {
     public Wallet wallet;
     public String ID;
 
-    Candidate(){
+    public Candidate(){
         wallet = new Wallet();
     }
 }
