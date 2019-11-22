@@ -2,16 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5727a2c-299e-4da4-82a6-0530d697ef6d" name="Default Changelist" comment="Updated Structure">
-      <change afterPath="$PROJECT_DIR$/chaindata/1.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/Election/Election.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/target/classes/Election/Election.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/Candidate.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/Candidate.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/Dealer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/Dealer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frontend/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frontend/Home.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/home.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/home.vm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/Dealer.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/Dealer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/frontend/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/frontend/Home.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/home.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/home.vm" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

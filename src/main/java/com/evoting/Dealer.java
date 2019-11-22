@@ -11,12 +11,12 @@ import java.security.Security;
 import java.util.ArrayList;
 import java.util.*;
 public class Dealer {
-    public static Voter voter[];
-    public static Candidate candidate[];
-    public static ArrayList<String> keys;
-    public static Transaction genesisTransaction;
-    public static BlockChain blockChain;
-    public static BigInteger candidateShare[][];
+    public ArrayList<Voter> voter;
+    public ArrayList<Candidate> candidate;
+    public ArrayList<String> keys;
+    public Transaction genesisTransaction;
+    public BlockChain blockChain;
+    public BigInteger candidateShare[][];
     public Wallet wallet;
 
     public Dealer(){
