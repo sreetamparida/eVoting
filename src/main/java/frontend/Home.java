@@ -116,9 +116,8 @@ public class Home {
             ArrayList<Block> blocks = new ArrayList<Block>();
             BlockChain localChain;
             SyncBlock syncBlock = new SyncBlock();
-
-            Wallet coinbase = new Wallet();
             dealer = new Dealer();
+            Wallet coinbase = new Wallet();
             Block lastBlock;
 
             try {
@@ -163,7 +162,6 @@ public class Home {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
-            dealer.candidate.add(new Candidate());
             return new ModelAndView(model, "add_candidate.vm");
         }, new VelocityTemplateEngine());
 
@@ -177,7 +175,7 @@ public class Home {
             model.put("election", request.queryParams("election_select"));
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
-
+            dealer.candidate.add(new Candidate());
             File file = new File(path);
             if(!file.exists()){
                 try (Writer writer = new FileWriter(path)) {
@@ -194,6 +192,7 @@ public class Home {
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> candidates = gson.fromJson(bufferedReader, HashMap.class);
             candidates.get("candidates").add(model);
+
 
             try (Writer writer = new FileWriter(path)) {
                 System.out.println(candidates);

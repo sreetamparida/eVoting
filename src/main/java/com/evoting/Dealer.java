@@ -21,6 +21,8 @@ public class Dealer {
 
     public Dealer(){
         wallet = new Wallet();
+        candidate = new ArrayList<Candidate>();
+        voter = new ArrayList<Voter>();
     }
 
 
