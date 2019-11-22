@@ -74,7 +74,6 @@ public class Home {
         });
 
         get("/home", (request, response) -> {
-//            Map<String, Object> model = new HashMap<>();
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -118,7 +117,6 @@ public class Home {
 
             Wallet coinbase = new Wallet();
             Dealer dealer = new Dealer();
-//            Wallet dealer = new Wallet();
             Block lastBlock;
 
             try {
