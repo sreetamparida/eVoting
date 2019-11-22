@@ -160,8 +160,7 @@ public class Home {
         }, new VelocityTemplateEngine());
 
         get("/addcandidate", (request, response) -> {
-//            Map<String, Object> model = new HashMap<>();
-            String path = "E:\\Sem1\\OOAD\\Project\\Data\\Election.json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
@@ -171,17 +170,26 @@ public class Home {
 
         post("/addcandidate", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-//            String fname = request.queryParams("fname");
-//            String lname = request.queryParams("lanem");
             String electionSelect = request.queryParams("election_select");
-//            System.out.println(fname + " " + lname + " " + electionSelect);
 
             model.put("firstname", request.queryParams("fname"));
             model.put("lastname", request.queryParams("lname"));
             model.put("election", request.queryParams("election_select"));
 
-            String path = "E:\\Sem1\\OOAD\\Project\\Data\\Candidates"+electionSelect+".json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
 
+            File file = new File(path);
+            if(!file.exists()){
+                try (Writer writer = new FileWriter(path)) {
+                    HashMap<String, ArrayList<Map>> candidates = new HashMap<>();
+                    candidates.put("candidates", new ArrayList<>());
+                    Gson gson = new GsonBuilder().setLenient().create();
+                    gson.toJson(candidates, writer);
+                }
+                System.out.println("File Created");
+            }else {
+                System.out.println("File  already exists in directory");
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> candidates = gson.fromJson(bufferedReader, HashMap.class);
@@ -193,19 +201,17 @@ public class Home {
                 gson.toJson(candidates, writer);
             }
 
+
             response.redirect("home");
             return "ok";
         });
 
         get("/election/:name", (request, response) -> {
-            String path = "E:\\Sem1\\OOAD\\Project\\Data\\Candidates"+ request.params(":name") +".json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+request.params(":name")+".json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
             return new ModelAndView(model, "election_details.vm");
-
-//            return "Hello: " + request.params(":name");
         }, new VelocityTemplateEngine());
     }
 }
