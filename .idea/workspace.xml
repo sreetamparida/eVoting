@@ -7,7 +7,6 @@
       <change afterPath="$PROJECT_DIR$/src/main/resources/Election/CandidatesXYZ.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/Election/CandidatesABC.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/target/classes/Election/CandidatesXYZ.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/chaindata/1.json" beforeDir="false" afterPath="$PROJECT_DIR$/chaindata/1.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frontend/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frontend/Home.java" afterDir="false" />

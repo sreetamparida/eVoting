@@ -1,5 +1,5 @@
-# Default ignored files
-/.idea/workspace.xml
-../.idea/
-../target/
-../.idea/*
+
+/target/classes/frontend/Home.class
+/.idea/*
+/target/
+/eVoting.iml
