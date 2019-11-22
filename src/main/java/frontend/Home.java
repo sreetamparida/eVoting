@@ -4,11 +4,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
+import com.evoting.*;
+import com.evoting.blockchain.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.*;
+import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +20,8 @@ import static spark.Spark.staticFileLocation;
 
 public class Home {
     static int electionid = 0;
+    static int flag = 0;
+    public static Transaction genesisTransaction;
 
     public static int getid(){
         return electionid++;
@@ -29,6 +31,7 @@ public class Home {
     public static void main(String[] args) {
 
         staticFileLocation("/public");
+        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
 //        get("/hello", (request, response) -> {
 //            Map<String, Object> model = new HashMap<>();
@@ -72,7 +75,7 @@ public class Home {
 
         get("/home", (request, response) -> {
 //            Map<String, Object> model = new HashMap<>();
-            String path = "E:\\Sem1\\OOAD\\Project\\Data\\Election.json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
 
@@ -94,19 +97,55 @@ public class Home {
             model.put("numvoters", request.queryParams("numvoters"));
             model.put("description", request.queryParams("desc"));
 
-            System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
-            String path = "E:\\Sem1\\OOAD\\Project\\Data\\Election.json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
 
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model1 = gson.fromJson(bufferedReader, HashMap.class);
             model1.get("elections").add(model);
+            if(flag==0){
+                model1.get("elections").remove(0);
+                flag=1;
+            }
+
+
+            String chainBlockDir = Config.chainBlockDir;
+            File file = new File(chainBlockDir);
+            BlockChain blockChain = new BlockChain();
+            ArrayList<Block> blocks = new ArrayList<Block>();
+            BlockChain localChain;
+            SyncBlock syncBlock = new SyncBlock();
+
+            Wallet coinbase = new Wallet();
+            Dealer dealer = new Dealer();
+//            Wallet dealer = new Wallet();
+            Block lastBlock;
+
+            try {
+                Block genesis = new Block().createGenesisBlock();
+                Float coin = Float.parseFloat(request.queryParams("numvoters"));
+
+                genesisTransaction = new Transaction(coinbase.publicKey, dealer.wallet.publicKey, coin, null);
+                genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
+                genesisTransaction.transactionId = "0"; //manually set the transaction id
+                genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+                blockChain.UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+                genesis.addTransaction(genesisTransaction);
+                blockChain.addBlock(genesis, true);
+                blocks.add(genesis);
+
+
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            System.out.println(dealer.wallet.getBalance());
+
 
 
 
             try (Writer writer = new FileWriter(path)) {
-                System.out.println(model1);
                 gson = new GsonBuilder().setLenient().create();
                 gson.toJson(model1, writer);
             }
