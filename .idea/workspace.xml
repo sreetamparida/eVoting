@@ -2,9 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5727a2c-299e-4da4-82a6-0530d697ef6d" name="Default Changelist" comment="Updated Structure">
+      <change afterPath="$PROJECT_DIR$/src/main/resources/add_candidate.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/election_details.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/add_candidate.vm" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/election_details.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/evoting/blockchain/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/frontend/Home.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/frontend/Home.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/add_election.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/add_election.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/home.vm" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/home.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/add_election.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/add_election.vm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/Node.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/evoting/blockchain/Node.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/frontend/Home.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/frontend/Home.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/home.vm" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/home.vm" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

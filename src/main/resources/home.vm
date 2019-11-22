@@ -16,11 +16,17 @@
     <ul class="list-group sticky-top sticky-offset">
         <!-- Separator with title -->
         <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-            <small>MAIN MENU</small>
+             <small>MAIN MENU</small>
         </li>
         <!-- /END Separator -->
         <!-- Menu with submenu -->
-        <a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+        <a href="/home"  class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-btc fa-fw mr-3"></span>
+                <span class="menu-collapsed">Home</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+        </a><a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
             <div class="d-flex w-100 justify-content-start align-items-center">
                 <span class="fa fa-btc fa-fw mr-3"></span>
                 <span class="menu-collapsed">Block Chain</span>
@@ -48,7 +54,7 @@
             <a href="/addelection" class="list-group-item list-group-item-action bg-dark text-white">
                 <span class="menu-collapsed add-vote">Add Election</span>
             </a>
-            <a data-toggle="modal" data-target="#addCandidateModal" class="list-group-item list-group-item-action bg-dark text-white">
+            <a href="/addcandidate" class="list-group-item list-group-item-action bg-dark text-white">
                 <span class="menu-collapsed" >Add Candidate</span>
             </a>
             <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
@@ -78,7 +84,7 @@
         #foreach( $election in $elections)
             <div class="card">
                 <div class="card-body">
-                    <h5 class="panel-body w-50">Title: $election.title </h5>
+                    <a href="election/$election.title"> <h5 class="panel-body w-50">Title: $election.title </h5> </a>
                     <p class="panel-body w-50"> Number of Voters: $election.numvoters </p>
                     <p class="panel-body w-50"> Description: $election.description </p>
                 </div>
