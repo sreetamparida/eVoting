@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Titleeee</title>
+</head>
+<body>
+    <p> Hello $username. You have voted for $option </p>
+</body>
+</html>
