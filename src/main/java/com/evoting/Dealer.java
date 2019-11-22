@@ -17,59 +17,11 @@ public class Dealer {
     public static Transaction genesisTransaction;
     public static BlockChain blockChain;
     public static BigInteger candidateShare[][];
+    public Wallet wallet;
 
-    public static void mainheader(String[] args) throws IOException {
-        //Setup Bouncey castle as a Security Provider
-        Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
-
-        Block curr;
-        Block prev;
-        ArrayList<Block> blocks = new ArrayList<Block>();
-
-        blockChain = new BlockChain();
-
-        System.out.println("Enter number of Candidates");
-        Scanner s = new Scanner(System.in);
-        int no_candidate = s.nextInt();
-
-        System.out.println("Enter number of Voters");
-        int no_voter = s.nextInt();
-        voter = new Voter[no_voter];
-
-        Shamir shamir = new Shamir(11,20);
-        candidate = new Candidate[no_candidate];
-        candidateShare = new BigInteger[no_candidate][];
-        for(int i= 0; i< no_candidate; i++){
-            candidate[i] = new Candidate();
-            candidateShare[i] = new BigInteger[20];
-
-            candidateShare[i] = shamir.split(new BigInteger(candidate[i].wallet.publicKey.toString().getBytes()));
-
-            System.out.println("Key share stored for candidate :" + i);
-        }
-
-        Wallet coinbase = new Wallet();
-        Wallet dealer = new Wallet();
-        Float coin = (float)no_voter;
-
-//        genesisTransaction = new Transaction(coinbase.publicKey, dealer.publicKey, coin, null);
-//        genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
-//        genesisTransaction.transactionId = "0"; //manually set the transaction id
-//        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
-//        blockChain.UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
-//        Block genesis = new Block().createGenesisBlock();
-//        genesis.addTransaction(genesisTransaction);
-//        blockChain.addBlock(genesis, true);
-//        blocks.add(genesis);
-
-        for(int j=0; j<no_voter;j++){
-            voter[j] = new Voter();
-            prev = blocks.get(j);
-            blocks.add(new Block(prev.getHash(), prev.getHeight()));
-            curr = blocks.get(j+1);
-            curr.addTransaction(dealer.sendFunds(voter[j].wallet.publicKey,1f, false));
-            blockChain.addBlock(curr, true);
-            System.out.println("Funds added to voter: " + (j+1));
-        }
+    public Dealer(){
+        wallet = new Wallet();
     }
+
+
 }
