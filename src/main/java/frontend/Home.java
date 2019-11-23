@@ -7,6 +7,7 @@ import spark.template.velocity.VelocityTemplateEngine;
 import com.evoting.*;
 import com.evoting.blockchain.*;
 
+import javax.swing.*;
 import java.io.*;
 import java.security.Security;
 import java.util.ArrayList;
@@ -23,6 +24,7 @@ public class Home {
     static int flag = 0;
     public static Transaction genesisTransaction;
     public static Dealer dealer;
+    public static Boolean iskeyGenerated = false;
 
     public static int getid(){
         return electionid++;
@@ -48,7 +50,7 @@ public class Home {
 //            // The vm files are located under the resources directory
 //            return new ModelAndView(model, "hello.vm");
 //        }, new VelocityTemplateEngine());
-
+//
 //        get("/hellosubmit", (request, response) -> {
 //            String username = request.queryParams("username");
 //            String option = request.queryParams("optradio");
@@ -69,10 +71,10 @@ public class Home {
             String password = request.queryParams("inputPassword");
             System.out.println(username +  " " + password);
             Map<String, Object> model = new HashMap<>();
-            if(username.equals("abc@b.com") && password.equals("abc")){
+            if(username.equals("admin@admin.com") && password.equals("admin")){
                 response.redirect("/home");
             }else {
-                response.redirect("/login");
+                response.redirect("/generatekeys");
             }
             return "ok";
         });
@@ -151,8 +153,6 @@ public class Home {
 
             System.out.println(dealer.wallet.getBalance());
 
-
-
             try (Writer writer = new FileWriter(path)) {
                 gson = new GsonBuilder().setLenient().create();
                 gson.toJson(model1, writer);
@@ -203,13 +203,11 @@ public class Home {
             HashMap<String, ArrayList<Map>> candidates = gson.fromJson(bufferedReader, HashMap.class);
             candidates.get("candidates").add(model);
 
-
             try (Writer writer = new FileWriter(path)) {
                 System.out.println(candidates);
                 gson = new GsonBuilder().setLenient().create();
                 gson.toJson(candidates, writer);
             }
-
 
             response.redirect("home");
             return "ok";
@@ -222,5 +220,73 @@ public class Home {
             HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
             return new ModelAndView(model, "election_details.vm");
         }, new VelocityTemplateEngine());
+
+        get("/registervoter", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            return new ModelAndView(model, "register_voter.vm");
+        }, new VelocityTemplateEngine());
+
+        post("/registervoter", (request, response) -> {
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("name", request.queryParams("fname"));
+            model.put("email", request.queryParams("email"));
+            model.put("password", request.queryParams("password"));
+
+            String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+
+            File file = new File(path);
+            if(!file.exists()){
+                try (Writer writer = new FileWriter(path)) {
+                    HashMap<String, ArrayList<Map>> voters = new HashMap<>();
+                    voters.put("voters", new ArrayList<>());
+                    Gson gson = new GsonBuilder().setLenient().create();
+                    gson.toJson(voters, writer);
+                }
+                System.out.println("File Created");
+            }else {
+                System.out.println("File  already exists in directory");
+            }
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            Gson gson = new Gson();
+            HashMap<String, ArrayList<Map>> voters = gson.fromJson(bufferedReader, HashMap.class);
+            voters.get("voters").add(model);
+
+            try (Writer writer = new FileWriter(path)) {
+                System.out.println(voters);
+                gson = new GsonBuilder().setLenient().create();
+                gson.toJson(voters, writer);
+            }
+
+            System.out.println(voters);
+            return new ModelAndView(model, "login.vm");
+        }, new VelocityTemplateEngine());
+
+        get("/generatekeys", (request, response) -> {
+
+
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/CandidatesABC.json";
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            Gson gson = new Gson();
+            HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
+
+//            Map<String, Object> model = new HashMap<>();
+            model.put("iskeyGenerated", iskeyGenerated);
+            model.put("key", "ahsbfjhasgfhasdfasfd");
+
+            return new ModelAndView(model, "generate_keys.vm");
+        }, new VelocityTemplateEngine());
+
+        post("/generatekeys", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("key", "ahsbfjhasgfhasdfasfd");
+
+            iskeyGenerated = true;
+            model.put("iskeyGenerated", iskeyGenerated);
+
+            response.redirect("/generatekeys");
+            return "ok";
+        });
     }
 }
