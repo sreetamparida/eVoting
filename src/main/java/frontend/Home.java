@@ -137,6 +137,7 @@ public class Home {
             dealer = new Dealer();
             Wallet coinbase = new Wallet();
             Block lastBlock;
+            dealer.noVoters = Integer.parseInt(request.queryParams("numvoters"));
 
             try {
                 Block genesis = new Block().createGenesisBlock();
@@ -158,7 +159,6 @@ public class Home {
             }
 
             System.out.println(dealer.wallet.getBalance());
-            dealer.generateSecretShare(Integer.parseInt(request.queryParams("numvoters")));
 
             try (Writer writer = new FileWriter(path)) {
                 gson = new GsonBuilder().setLenient().create();
@@ -310,6 +310,7 @@ public class Home {
         post("/generatekeyshare", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             System.out.println("Generating Keyshare...");
+            dealer.generateSecretShare();
             iskeyShareGenerated = true;
             response.redirect("/home");
             return "ok";

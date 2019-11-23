@@ -17,6 +17,7 @@ public class Dealer {
     private ArrayList<BigInteger> keys;
     public BigInteger candidateShare[][];
     public Wallet wallet;
+    public int noVoters;
 
     public Dealer(){
         wallet = new Wallet();
@@ -25,7 +26,7 @@ public class Dealer {
         keys = new ArrayList<BigInteger>();
     }
 
-    public void generateSecretShare(int noVoters){
+    public void generateSecretShare(){
         Shamir shamir = new Shamir(1,noVoters);
         candidateShare = new BigInteger[noVoters][this.candidate.size()];
         int i = 0;
