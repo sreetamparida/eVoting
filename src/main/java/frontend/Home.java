@@ -190,9 +190,13 @@ public class Home {
             model.put("lastname", request.queryParams("lname"));
             model.put("election", request.queryParams("election_select"));
 
-            
+            String uuid = UUID.randomUUID().toString();
+
+            model.put("uuid", uuid);
+            System.out.println(uuid);
+
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
-            dealer.candidate.put("ss",new Candidate());
+            dealer.candidate.put(uuid, new Candidate());
             File file = new File(path);
             if(!file.exists()){
                 try (Writer writer = new FileWriter(path)) {
