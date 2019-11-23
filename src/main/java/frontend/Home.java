@@ -228,6 +228,7 @@ public class Home {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
+            System.out.println(iskeyShareGenerated);
             model.put("iskeyShareGenerated", iskeyShareGenerated);
             return new ModelAndView(model, "election_details.vm");
         }, new VelocityTemplateEngine());
@@ -279,7 +280,6 @@ public class Home {
         }, new VelocityTemplateEngine());
 
         get("/generatekeys", (request, response) -> {
-
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/CandidatesABC.json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
