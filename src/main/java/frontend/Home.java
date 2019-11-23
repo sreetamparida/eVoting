@@ -158,6 +158,7 @@ public class Home {
             }
 
             System.out.println(dealer.wallet.getBalance());
+            dealer.generateSecretShare(Integer.parseInt(request.queryParams("numvoters")));
 
             try (Writer writer = new FileWriter(path)) {
                 gson = new GsonBuilder().setLenient().create();
@@ -197,6 +198,7 @@ public class Home {
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
             dealer.candidate.put(uuid, new Candidate());
+            System.out.println(dealer.candidate.keySet());
             File file = new File(path);
             if(!file.exists()){
                 try (Writer writer = new FileWriter(path)) {
@@ -246,6 +248,10 @@ public class Home {
             model.put("password", request.queryParams("password"));
 
             String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+            String uuid = UUID.randomUUID().toString();
+            model.put("uuid",uuid);
+            dealer.addVoter(uuid);
+            System.out.println(dealer.voter.keySet());
 
             File file = new File(path);
             if(!file.exists()){
