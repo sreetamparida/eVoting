@@ -192,7 +192,7 @@ public class Home {
 
             
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
-            dealer.candidate.add(new Candidate());
+            dealer.candidate.put("ss",new Candidate());
             File file = new File(path);
             if(!file.exists()){
                 try (Writer writer = new FileWriter(path)) {
