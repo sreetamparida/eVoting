@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta charset="UTF-8">
+<title>Test</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="/css/home.css">
+</head>
+<body>
+    <div id="sidebar-container" class="sidebar-container sidebar-expanded d-none d-md-block col-2">
+        <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
+        <!-- Bootstrap List Group -->
+        <ul class="list-group sticky-top sticky-offset">
+            <!-- Separator with title -->
+            <li class="bg-dark list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
+                <small>MAIN MENU</small>
+            </li>
+            <!-- /END Separator -->
+            <!-- Menu with submenu -->
+            <a href="/home"  class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-btc fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Home</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a><a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-start align-items-center">
+                <span class="fa fa-btc fa-fw mr-3"></span>
+                <span class="menu-collapsed">Block Chain</span>
+                <span class="submenu-icon ml-auto"></span>
+            </div>
+        </a>
+            <!-- Submenu content -->
+            <div id="submenu1" class="collapse sidebar-submenu">
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Add Balance</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Reports</span>
+                </a>
+            </div>
+            <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-user fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Voting</span>
+                    <span class="submenu-icon ml-auto"></span>
+                </div>
+            </a>
+            <!-- Submenu content -->
+            <div id="submenu2" class="collapse sidebar-submenu">
+                <a href="/addelection" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed add-vote">Add Election</span>
+                </a>
+                <a href="/addcandidate" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed" >Add Candidate</span>
+                </a>
+                <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
+                    <span class="menu-collapsed">Start Voting</span>
+                </a>
+            </div>
+            <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-question fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Help</span>
+                </div>
+            </a>
+        </ul>
+        <!-- List Group END-->
+    </div>
+</body>
+</html>

@@ -9,74 +9,7 @@
 </head>
 <body>
 <div class="row">
-
-<div id="sidebar-container" class="sidebar-expanded d-none d-md-block col-2">
-    <!-- d-* hiddens the Sidebar in smaller devices. Its itens can be kept on the Navbar 'Menu' -->
-    <!-- Bootstrap List Group -->
-    <ul class="list-group sticky-top sticky-offset">
-        <!-- Separator with title -->
-        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-             <small>MAIN MENU</small>
-        </li>
-        <!-- /END Separator -->
-        <!-- Menu with submenu -->
-        <a href="/home"  class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-btc fa-fw mr-3"></span>
-                <span class="menu-collapsed">Home</span>
-                <span class="submenu-icon ml-auto"></span>
-            </div>
-        </a><a href="#submenu1" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-btc fa-fw mr-3"></span>
-                <span class="menu-collapsed">Block Chain</span>
-                <span class="submenu-icon ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        <div id="submenu1" class="collapse sidebar-submenu">
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Add Balance</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Reports</span>
-            </a>
-        </div>
-        <a href="#submenu2" data-toggle="collapse" aria-expanded="false" class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-user fa-fw mr-3"></span>
-                <span class="menu-collapsed">Voting</span>
-                <span class="submenu-icon ml-auto"></span>
-            </div>
-        </a>
-        <!-- Submenu content -->
-        <div id="submenu2" class="collapse sidebar-submenu">
-            <a href="/addelection" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed add-vote">Add Election</span>
-            </a>
-            <a href="/addcandidate" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed" >Add Candidate</span>
-            </a>
-            <a href="#" class="list-group-item list-group-item-action bg-dark text-white">
-                <span class="menu-collapsed">Start Voting</span>
-            </a>
-        </div>
-        
-        <!-- Separator with title -->
-        <li class="list-group-item sidebar-separator-title text-muted d-flex align-items-center menu-collapsed">
-            <small>OPTIONS</small>
-        </li>
-        <!-- /END Separator -->
-
-        <a href="#" class="bg-dark list-group-item list-group-item-action">
-            <div class="d-flex w-100 justify-content-start align-items-center">
-                <span class="fa fa-question fa-fw mr-3"></span>
-                <span class="menu-collapsed">Help</span>
-            </div>
-        </a>
-    </ul>
-    <!-- List Group END-->
-</div>
+    #parse("sidebar.vm")
     <div class="content col-10">
         <div class="text-center">
             <h4> Upcoming Elections </h4>
@@ -93,43 +26,6 @@
     </div>
 </div>
 </body>
-
-<div class="modal fade" id="addCandidateModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="lineModalLabel"> Add Candidate </h3>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-                <!-- content goes here -->
-                <form action="">
-                    <div class="form-group p-1">
-                        <label for="fname">First Name:</label>
-                        <input type="text" class="form-control" id="fname" placeholder="Enter First Name" name="fname">
-                    </div>
-                    <div class="form-group p-1">
-                        <label for="lname">Last Name:</label>
-                        <input type="numeric" class="form-control" id="lname" placeholder="Enter Last Name" name="lname">
-                    </div>
-                    <div class="form-group p-1">
-                        <label for="candiatefor">Candidate For:</label>
-                        <textarea  class="form-control" id="candiatefor" placeholder="" name="candiatefor"> </textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
-
-            </div>
-            <div class="modal-footer">
-                <div class="btn-group btn-group-justified" role="group" aria-label="group button">
-                    <div class="btn-group" role="group">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"  role="button">Close</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 <script src="js/home.js"></script>
 </html>

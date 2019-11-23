@@ -32,6 +32,9 @@ public class Home {
     public static void main(String[] args) {
 
         staticFileLocation("/public");
+//        spark.Spark.staticFiles.externalLocation(System.getProperty("user.dir")+"/src/main/resources/public");
+
+
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
 //        get("/hello", (request, response) -> {
@@ -77,12 +80,23 @@ public class Home {
         get("/home", (request, response) -> {
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
 
+            HashMap<String, ArrayList<Map>> elections = new HashMap<>();
+
+            File file = new File(path);
+            if(!file.exists()){
+                try (Writer writer = new FileWriter(path)) {
+                    elections.put("elections", new ArrayList<>());
+                    Gson gson = new GsonBuilder().setLenient().create();
+                    gson.toJson(elections, writer);
+                }
+                System.out.println("File Created");
+            }else {
+                System.out.println("File  already exists in directory");
+            }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-
             Gson gson = new Gson();
-            HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
-
-            return new ModelAndView(model, "home.vm");
+            elections = gson.fromJson(bufferedReader, HashMap.class);
+            return new ModelAndView(elections, "home.vm");
         }, new VelocityTemplateEngine());
 
 
@@ -104,10 +118,6 @@ public class Home {
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map>> model1 = gson.fromJson(bufferedReader, HashMap.class);
             model1.get("elections").add(model);
-            if(flag==0){
-                model1.get("elections").remove(0);
-                flag=1;
-            }
 
 
             String chainBlockDir = Config.chainBlockDir;
