@@ -22,7 +22,10 @@ public class Home {
     public static Transaction genesisTransaction;
     public static Dealer dealer;
     public static Boolean iskeyGenerated = false;
+    public static int index = 0;
+
     public static Boolean iskeyShareGenerated = false;
+
 
     public static int getid(){
         return electionid++;
@@ -134,6 +137,7 @@ public class Home {
             dealer = new Dealer();
             Wallet coinbase = new Wallet();
             Block lastBlock;
+            dealer.noVoters = Integer.parseInt(request.queryParams("numvoters"));
 
             try {
                 Block genesis = new Block().createGenesisBlock();
@@ -155,7 +159,6 @@ public class Home {
             }
 
             System.out.println(dealer.wallet.getBalance());
-            dealer.generateSecretShare(Integer.parseInt(request.queryParams("numvoters")));
 
             try (Writer writer = new FileWriter(path)) {
                 gson = new GsonBuilder().setLenient().create();
@@ -194,7 +197,7 @@ public class Home {
             System.out.println(uuid);
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
-            dealer.candidate.put(uuid, new Candidate());
+            dealer.candidate.put(uuid, new Candidate(index++));
             System.out.println(dealer.candidate.keySet());
             File file = new File(path);
             if(!file.exists()){
@@ -307,6 +310,7 @@ public class Home {
         post("/generatekeyshare", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             System.out.println("Generating Keyshare...");
+            dealer.generateSecretShare();
             iskeyShareGenerated = true;
             response.redirect("/home");
             return "ok";
