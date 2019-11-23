@@ -13,6 +13,7 @@ import java.security.Security;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static spark.Spark.post;
 import static spark.Spark.get;
@@ -64,6 +65,11 @@ public class Home {
         get("/login", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             return new ModelAndView(model, "login.vm");
+        }, new VelocityTemplateEngine());
+
+        get("/voterlogin", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "voter_login.vm");
         }, new VelocityTemplateEngine());
 
         post("/login", (request, response) -> {
@@ -184,6 +190,7 @@ public class Home {
             model.put("lastname", request.queryParams("lname"));
             model.put("election", request.queryParams("election_select"));
 
+            
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
             dealer.candidate.add(new Candidate());
             File file = new File(path);
@@ -260,7 +267,7 @@ public class Home {
             }
 
             System.out.println(voters);
-            return new ModelAndView(model, "login.vm");
+            return new ModelAndView(model, "voter_login.vm");
         }, new VelocityTemplateEngine());
 
         get("/generatekeys", (request, response) -> {
