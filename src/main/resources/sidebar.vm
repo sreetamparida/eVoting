@@ -18,7 +18,7 @@
             <!-- Menu with submenu -->
             <a href="/home"  class="bg-dark list-group-item list-group-item-action flex-column align-items-start">
                 <div class="d-flex w-100 justify-content-start align-items-center">
-                    <span class="fa fa-btc fa-fw mr-3"></span>
+                    <span class="fa fa-home fa-fw mr-3"></span>
                     <span class="menu-collapsed">Home</span>
                     <span class="submenu-icon ml-auto"></span>
                 </div>
@@ -57,6 +57,12 @@
                     <span class="menu-collapsed">Start Voting</span>
                 </a>
             </div>
+            <a href="#" class="bg-dark list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-start align-items-center">
+                    <span class="fa fa-hourglass-half fa-fw mr-3"></span>
+                    <span class="menu-collapsed">Start Election</span>
+                </div>
+            </a>
             <a href="#" class="bg-dark list-group-item list-group-item-action">
                 <div class="d-flex w-100 justify-content-start align-items-center">
                     <span class="fa fa-question fa-fw mr-3"></span>

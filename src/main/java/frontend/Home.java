@@ -7,7 +7,6 @@ import spark.template.velocity.VelocityTemplateEngine;
 import com.evoting.*;
 import com.evoting.blockchain.*;
 
-import javax.swing.*;
 import java.io.*;
 import java.security.Security;
 import java.util.ArrayList;
@@ -15,10 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static spark.Spark.post;
-import static spark.Spark.get;
-
-import static spark.Spark.staticFileLocation;
+import static spark.Spark.*;
 
 public class Home {
     static int electionid = 0;
@@ -26,6 +22,7 @@ public class Home {
     public static Transaction genesisTransaction;
     public static Dealer dealer;
     public static Boolean iskeyGenerated = false;
+    public static Boolean iskeyShareGenerated = false;
 
     public static int getid(){
         return electionid++;
@@ -230,7 +227,8 @@ public class Home {
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+request.params(":name")+".json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
-            HashMap<String, ArrayList<Map>> model = gson.fromJson(bufferedReader, HashMap.class);
+            HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
+            model.put("iskeyShareGenerated", iskeyShareGenerated);
             return new ModelAndView(model, "election_details.vm");
         }, new VelocityTemplateEngine());
 
@@ -292,7 +290,7 @@ public class Home {
             model.put("iskeyGenerated", iskeyGenerated);
             model.put("key", "ahsbfjhasgfhasdfasfd");
 
-            return new ModelAndView(model, "generate_keys.vm");
+            return new ModelAndView(model, "cast_vote.vm");
         }, new VelocityTemplateEngine());
 
         post("/generatekeys", (request, response) -> {
@@ -303,6 +301,14 @@ public class Home {
             model.put("iskeyGenerated", iskeyGenerated);
 
             response.redirect("/generatekeys");
+            return "ok";
+        });
+
+        post("/generatekeyshare", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            System.out.println("Generating Keyshare...");
+            iskeyShareGenerated = true;
+            response.redirect("/home");
             return "ok";
         });
     }

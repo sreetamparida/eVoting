@@ -26,6 +26,30 @@
                 </ul>
             </div>
         </div>
+        #if ($iskeyShareGenerated=="false")
+            <div class="card w-50">
+                <div class="card-body">
+                    <form action="/generatekeyshare" method="post">
+                        <div class="form-group p-2">
+                            Before generating these keyshares, please make sure that all  candidates are Registered.
+                        </div>
+                        <div class="form-group p-1">
+                            <button type="submit" class="btn btn-primary">Generate Shamir's Keyshares</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        #else
+            <div class="card w-50">
+                <div class="card-body">
+                    <form action="/generatekeyshare" method="post">
+                        <div class="form-group p-2">
+                            key Share Has been succelfully generated.
+                        </div>
+                    </form>
+                </div>
+            </div>
+        #end
     </div>
 </div>
 </body>

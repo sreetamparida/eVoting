@@ -15,33 +15,25 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-body">
-                    <form action="/generatekeys" method="post">
-                        #if ($iskeyGenerated == "false")
-                            <div class="form-group p-1">
-                                <button class="btn btn-primary" type="submit"> Generate Keys </button>
-                            </div>
-                        #end
-                        <div class="form-group p-1">
-                            <label for="desc"> Key </label>
-                            <textarea  class="form-control" id="desc" placeholder="" name="publickey">#if ($iskeyGenerated == "true")$key #end</textarea>
-                        </div>
-                    </form>
+                    #foreach($candidate in $candidates)
+                        <li> $candidate.firstname </li>
+                    #end
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <ul>
-                        Candidate List
-                        #foreach($candidate in $candidates)
-                            <li> $candidate.firstname </li>
-                        #end
-                    </ul>
-                </div>
-                <button id="vote" class="btn btn-primary"> Vote </button>
-            </div>
-        </div>
+##        <div class="col-md-6">
+##            <div class="card">
+##                <div class="card-body">
+##                    <ul>
+##                        Candidate List
+##                        #foreach($candidate in $candidates)
+##                            <li> $candidate.firstname </li>
+##                        #end
+##                    </ul>
+##                </div>
+##                <button id="vote" class="btn btn-primary"> Vote </button>
+##            </div>
+##        </div>
     </div>
 </div>
 </body>
