@@ -26,6 +26,7 @@ public class Home {
     public static Transaction genesisTransaction;
     public static Dealer dealer;
     public static Boolean iskeyGenerated = false;
+    static int index = 0;
 
     public static int getid(){
         return electionid++;
@@ -197,7 +198,7 @@ public class Home {
             System.out.println(uuid);
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
-            dealer.candidate.put(uuid, new Candidate());
+            dealer.candidate.put(uuid, new Candidate(index++));
             System.out.println(dealer.candidate.keySet());
             File file = new File(path);
             if(!file.exists()){

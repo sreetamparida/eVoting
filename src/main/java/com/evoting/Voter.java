@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Voter {
     public Wallet wallet;
     public String ID;
-    private static ArrayList<String> keys = new ArrayList<String>();
+    public static BigInteger key;
     private BigInteger keyShare[];
    public Voter(){
         wallet = new Wallet();
@@ -22,13 +22,15 @@ public class Voter {
         keyShare = share;
     }
 
-    public void vote(PublicKey receiver) {
+    public BigInteger vote(PublicKey receiver, int index) {
         Block block;
         SyncBlock syncBlock = new SyncBlock();
         BlockChain localChain = syncBlock.syncLocal();
         Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
         block = new Block(lastBlock.getHash(), lastBlock.getHeight());
         block.addTransaction(wallet.sendFunds(receiver, 1f, false));
+        this.key = keyShare[index];
+        return key;
     }
 
 }
