@@ -334,10 +334,7 @@ public class Home {
 
         get("/resultdata", (request, response) -> {
             Map<String, Integer> model = new HashMap<>();
-//            model = dealer.displayResult();
-            model.put("ss", 20);
-            model.put("ss2", 20);
-            model.put("ss3", 30);
+            model = dealer.displayResult();
             Gson gson = new GsonBuilder().setLenient().create();
             return gson.toJson(model);
         });
