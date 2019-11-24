@@ -327,9 +327,19 @@ public class Home {
 
 
         get("/result", (request, response) -> {
-            Map<String, String> model = new HashMap<>();
-            model = dealer.displayResult();
+            Map<String, Integer> model = new HashMap<>();
+//            model = dealer.displayResult();
             return new ModelAndView(model,"result.vm");
         }, new VelocityTemplateEngine());
+
+        get("/resultdata", (request, response) -> {
+            Map<String, Integer> model = new HashMap<>();
+//            model = dealer.displayResult();
+            model.put("ss", 20);
+            model.put("ss2", 20);
+            model.put("ss3", 30);
+            Gson gson = new GsonBuilder().setLenient().create();
+            return gson.toJson(model);
+        });
     }
 }
