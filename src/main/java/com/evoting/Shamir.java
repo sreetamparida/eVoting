@@ -49,11 +49,11 @@ public final class Shamir {
         prime = new BigInteger(modLength, CERTAINTY, random);
         final BigInteger[] coeff = new BigInteger[k - 1];
 
-        System.out.println("Prime Number: " + prime);
+//        System.out.println("Prime Number: " + prime);
 
         for (int i = 0; i < k - 1; i++) {
             coeff[i] = randomZp(prime);
-            System.out.println("a" + (i + 1) + ": " + coeff[i]);
+//            System.out.println("a" + (i + 1) + ": " + coeff[i]);
         }
 
         final BigInteger shares[] = new BigInteger[n];
@@ -67,7 +67,7 @@ public final class Shamir {
                 accum = accum.add(t2).mod(prime);
             }
             shares[i - 1] = accum;
-            System.out.println("Share " + shares[i - 1]);
+//            System.out.println("Share " + shares[i - 1]);
         }
 
         return shares;
@@ -90,16 +90,16 @@ public final class Shamir {
                 }
             }
 
-            System.out.println("den: " + den + ", num: " + den + ", inv: " + den.modInverse(primeNum));
+//            System.out.println("den: " + den + ", num: " + den + ", inv: " + den.modInverse(primeNum));
             final BigInteger value = shares[i].getShare();
 
             final BigInteger tmp = value.multiply(num).multiply(den.modInverse(primeNum)).mod(primeNum);
             accum = accum.add(primeNum).add(tmp).mod(primeNum);
 
-            System.out.println("value: " + value + ", tmp: " + tmp + ", accum: " + accum);
+//            System.out.println("value: " + value + ", tmp: " + tmp + ", accum: " + accum);
         }
 
-        System.out.println("The secret is: " + accum);
+//        System.out.println("The secret is: " + accum);
 
         return accum;
     }

@@ -44,6 +44,7 @@ public class Dealer {
 
     public void addVoter(String username){
         voter.put(username, new Voter());
+
         voter.get(username).setKeyShare(candidateShare[voter.size()-1]);
     }
 

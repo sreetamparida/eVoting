@@ -37,32 +37,13 @@ public class Home {
     public static void main(String[] args) {
 
         staticFileLocation("/public");
-//        spark.Spark.staticFiles.externalLocation(System.getProperty("user.dir")+"/src/main/resources/public");
+        SyncBlock syncBlock = new SyncBlock();
+
 
 
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
-//        get("/hello", (request, response) -> {
-//            Map<String, Object> model = new HashMap<>();
-//            model.put("hello", "Velocity World");
-//            ArrayList<String> options = new ArrayList<>();
-//            options.add("C1");
-//            options.add("C2");
-//            options.add("C3");
-//            model.put("options", options);
-//            // The vm files are located under the resources directory
-//            return new ModelAndView(model, "hello.vm");
-//        }, new VelocityTemplateEngine());
-//
-//        get("/hellosubmit", (request, response) -> {
-//            String username = request.queryParams("username");
-//            String option = request.queryParams("optradio");
-//            Map<String, Object> model = new HashMap<>();
-//            model.put("username", username);
-//            model.put("option", option);
-//
-//            return new ModelAndView(model, "hellosubmit.vm");
-//        }, new VelocityTemplateEngine());
+
 
         get("/login", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
@@ -246,7 +227,11 @@ public class Home {
             String uuid = UUID.randomUUID().toString();
             model.put("uuid",uuid);
             dealer.addVoter(uuid);
-            System.out.println(dealer.voter.keySet());
+            BlockChain localChain = syncBlock.syncLocal();
+            Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
+            Block block = new Block(lastBlock.getHash(), lastBlock.getHeight());
+            block.addTransaction(dealer.wallet.sendFunds(dealer.voter.get(uuid).wallet.publicKey, 1f, false));
+            System.out.println(dealer.voter.get(uuid).wallet.getBalance());
 
             File file = new File(path);
             if(!file.exists()){
@@ -291,6 +276,8 @@ public class Home {
             System.out.println("Voted !");
             String candidate_uuid = request.queryParams("candidate_uuid");
             String voter_uuid = currentUuid;
+            dealer.addVote(candidate_uuid,voter_uuid);
+            System.out.println(dealer.displayKeyCount());
             return "ok";
         });
 
