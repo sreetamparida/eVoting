@@ -328,6 +328,7 @@ public class Home {
 
         get("/result", (request, response) -> {
             Map<String, String> model = new HashMap<>();
+            model = dealer.displayResult();
             return new ModelAndView(model,"result.vm");
         }, new VelocityTemplateEngine());
     }
