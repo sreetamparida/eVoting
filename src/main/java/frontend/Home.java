@@ -324,5 +324,10 @@ public class Home {
             return "ok";
         });
 
+
+        get("/result", (request, response) -> {
+            Map<String, String> model = new HashMap<>();
+            return new ModelAndView(model,"result.vm");
+        }, new VelocityTemplateEngine());
     }
 }
