@@ -16,7 +16,12 @@
             <div class="card">
                 <div class="card-body">
                     #foreach($candidate in $candidates)
-                        <li> $candidate.firstname </li>
+                    <div class="card p-0">
+                        <div class="card-body text-center voter" uuid="$candidate.uuid">
+##                            <button type="button" class="btn btn-primary p-2"> $candidate.firstname </button>
+                            $candidate.firstname
+                        </div>
+                    </div>
                     #end
                 </div>
             </div>
@@ -37,4 +42,5 @@
     </div>
 </div>
 </body>
+<script src="js/vote.js"></script>
 </html>

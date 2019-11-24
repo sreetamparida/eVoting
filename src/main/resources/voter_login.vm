@@ -30,7 +30,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-10 col-xl-7 mx-auto">
-                            <form action="/login" method="post">
+                            <form action="/voterlogin" method="post">
                                 <div class="form-group mb-3">
                                     <input id="inputEmail" name="inputEmail" type="email" placeholder="Email address" required="" autofocus="" class="form-control rounded-pill border-0 shadow-sm px-4">
                                 </div>
@@ -41,8 +41,12 @@
                                     <input id="customCheck1" type="checkbox" checked class="custom-control-input">
                                     <label for="customCheck1" class="custom-control-label text-white">Remember password</label>
                                 </div>
+                                #if ($isValidCredentials == 'false')
+                                <div>
+                                    <p> Invalid username/password, Please try again. </p>
+                                </div>
+                                #end
                                 <button type="submit" class="btn btn-dark btn-block text-uppercase mb-2 rounded-pill shadow-sm">Sign in</button>
-
                             </form>
                         </div>
                     </div>

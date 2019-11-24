@@ -23,8 +23,10 @@ public class Home {
     public static Dealer dealer;
     public static Boolean iskeyGenerated = false;
     public static int index = 0;
-
+    public static Boolean isValidCredentials = true;
     public static Boolean iskeyShareGenerated = false;
+    public static String currentUuid = null;
+
 
 
     public static int getid(){
@@ -67,10 +69,6 @@ public class Home {
             return new ModelAndView(model, "login.vm");
         }, new VelocityTemplateEngine());
 
-        get("/voterlogin", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            return new ModelAndView(model, "voter_login.vm");
-        }, new VelocityTemplateEngine());
 
         post("/login", (request, response) -> {
             String username = request.queryParams("inputEmail");
@@ -80,7 +78,7 @@ public class Home {
             if(username.equals("admin@admin.com") && password.equals("admin")){
                 response.redirect("/home");
             }else {
-                response.redirect("/generatekeys");
+                response.redirect("/vote");
             }
             return "ok";
         });
@@ -88,7 +86,7 @@ public class Home {
         get("/home", (request, response) -> {
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
 
-            HashMap<String, ArrayList<Map>> elections = new HashMap<>();
+            Map<String, ArrayList<Map>> elections = new HashMap<>();
 
             File file = new File(path);
             if(!file.exists()){
@@ -196,7 +194,7 @@ public class Home {
             model.put("uuid", uuid);
             System.out.println(uuid);
 
-            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+electionSelect+".json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
             dealer.candidate.put(uuid, new Candidate(index++));
             System.out.println(dealer.candidate.keySet());
             File file = new File(path);
@@ -221,13 +219,12 @@ public class Home {
                 gson = new GsonBuilder().setLenient().create();
                 gson.toJson(candidates, writer);
             }
-
             response.redirect("home");
             return "ok";
         });
 
         get("/election/:name", (request, response) -> {
-            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates"+request.params(":name")+".json";
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
@@ -245,8 +242,9 @@ public class Home {
         post("/registervoter", (request, response) -> {
 
             Map<String, Object> model = new HashMap<>();
+            String email = request.queryParams("email");
             model.put("name", request.queryParams("fname"));
-            model.put("email", request.queryParams("email"));
+//            model.put("email", email);
             model.put("password", request.queryParams("password"));
 
             String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
@@ -258,8 +256,8 @@ public class Home {
             File file = new File(path);
             if(!file.exists()){
                 try (Writer writer = new FileWriter(path)) {
-                    HashMap<String, ArrayList<Map>> voters = new HashMap<>();
-                    voters.put("voters", new ArrayList<>());
+                    HashMap<String, Object> voters = new HashMap<>();
+//                    voters.put("voters", new HashMap<String, String>());
                     Gson gson = new GsonBuilder().setLenient().create();
                     gson.toJson(voters, writer);
                 }
@@ -269,8 +267,8 @@ public class Home {
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
-            HashMap<String, ArrayList<Map>> voters = gson.fromJson(bufferedReader, HashMap.class);
-            voters.get("voters").add(model);
+            HashMap<String, Object> voters = gson.fromJson(bufferedReader, HashMap.class);
+            voters.put(email, model);
 
             try (Writer writer = new FileWriter(path)) {
                 System.out.println(voters);
@@ -279,33 +277,28 @@ public class Home {
             }
 
             System.out.println(voters);
-            return new ModelAndView(model, "voter_login.vm");
-        }, new VelocityTemplateEngine());
+//            return new ModelAndView(model, "voter_login.vm");
+            response.redirect("voterlogin");
+            return "ook";
+        });
 
-        get("/generatekeys", (request, response) -> {
-
-            String path = System.getProperty("user.dir")+"/src/main/resources/Election/CandidatesABC.json";
+        get("/vote", (request, response) -> {
+            String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
-
-//            Map<String, Object> model = new HashMap<>();
-            model.put("iskeyGenerated", iskeyGenerated);
-            model.put("key", "ahsbfjhasgfhasdfasfd");
-
+            System.out.println(model);
             return new ModelAndView(model, "cast_vote.vm");
         }, new VelocityTemplateEngine());
 
-        post("/generatekeys", (request, response) -> {
-            Map<String, Object> model = new HashMap<>();
-            model.put("key", "ahsbfjhasgfhasdfasfd");
 
-            iskeyGenerated = true;
-            model.put("iskeyGenerated", iskeyGenerated);
-
-            response.redirect("/generatekeys");
+        post("/vote", (request, response) -> {
+            System.out.println("Voted !");
+            String candidate_uuid = request.queryParams("candidate_uuid");
+            String voter_uuid = currentUuid;
             return "ok";
         });
+
 
         post("/generatekeyshare", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
@@ -315,5 +308,39 @@ public class Home {
             response.redirect("/home");
             return "ok";
         });
+
+        get("/voterlogin", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            model.put("isValidCredentials", isValidCredentials);
+            return new ModelAndView(model, "voter_login.vm");
+        }, new VelocityTemplateEngine());
+
+
+        post("/voterlogin", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            String email = request.queryParams("inputEmail");
+            String password = request.queryParams("inputPassword");
+
+            String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            Gson gson = new Gson();
+            HashMap<String, Map<String, String>> voters = gson.fromJson(bufferedReader, HashMap.class);
+
+            Map<String, String> tempemail = voters.get(email);
+            if(tempemail !=null){
+                System.out.println(tempemail.get("password"));
+                if(password.equals(tempemail.get("password"))){
+                    isValidCredentials = true;
+                    currentUuid = tempemail.get("uuid");
+                    response.redirect("/vote");
+                }else{
+                    isValidCredentials = false;
+                    response.redirect("/voterlogin");
+                }
+            }
+            return "ok";
+        });
+
     }
 }

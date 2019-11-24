@@ -83,3 +83,7 @@ body {
 .dashboard-title{
     padding: 30px 0 0 50px;
 }
+.voter:hover{
+    background-color: aqua;
+    cursor: pointer;
+}
