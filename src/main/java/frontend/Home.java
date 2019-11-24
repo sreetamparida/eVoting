@@ -172,6 +172,7 @@ public class Home {
 
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
             dealer.candidate.put(uuid, new Candidate(index++));
+            dealer.candidate.get(uuid).name = request.queryParams("fname");
             System.out.println(dealer.candidate.keySet());
             File file = new File(path);
             if(!file.exists()){

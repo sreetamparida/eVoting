@@ -61,8 +61,9 @@ public class Dealer {
     public HashMap displayResult(){
         HashMap<String, Integer> votes = new HashMap<String, Integer>();
         for (String s: candidate.keySet()) {
-            votes.put(s, (int) candidate.get(s).wallet.getBalance());
+            votes.put(candidate.get(s).name, (int) candidate.get(s).wallet.getBalance());
         }
+        votes.put("keyCount", keys.size());
         return votes;
     }
 
