@@ -23,7 +23,7 @@ public class Dealer {
         wallet = new Wallet();
         candidate = new HashMap<String, Candidate>();
         voter = new HashMap<String, Voter>();
-        keys = new ArrayList<BigInteger>();
+        keys = new HashMap<String, BigInteger>();
     }
 
     public void generateSecretShare(){
