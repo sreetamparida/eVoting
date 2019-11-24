@@ -52,6 +52,13 @@ public class Dealer {
         PublicKey receiver = candidate.get(r_uuid).wallet.publicKey;
         int index = candidate.get(r_uuid).index;
         keys.add(voter.get(uuid).vote(receiver,index));
+        ArrayList<BigInteger> temp = new ArrayList<BigInteger>();
+        for(BigInteger key: keys){
+            if(!temp.contains(key)){
+                temp.add(key);
+            }
+        }
+        keys = temp;
     }
 
     public int displayKeyCount(){
