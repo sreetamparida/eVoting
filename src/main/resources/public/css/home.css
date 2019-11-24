@@ -73,3 +73,13 @@ body {
 .modal-footer .btn-group:last-child > button {
     border-right: 0;
 }
+
+.home-bg{
+    background-color: powderblue;
+}
+.card-bg{
+    background-color: #333333;
+}
+.dashboard-title{
+    padding: 30px 0 0 50px;
+}
