@@ -14,7 +14,7 @@ import java.util.*;
 public class Dealer {
     public HashMap<String, Voter> voter;
     public HashMap<String,Candidate> candidate;
-    private ArrayList<BigInteger> keys;
+    private HashMap<String,BigInteger> keys;
     public BigInteger candidateShare[][];
     public Wallet wallet;
     public int noVoters;
@@ -51,14 +51,7 @@ public class Dealer {
     public void addVote(String r_uuid, String uuid){
         PublicKey receiver = candidate.get(r_uuid).wallet.publicKey;
         int index = candidate.get(r_uuid).index;
-        keys.add(voter.get(uuid).vote(receiver,index));
-        ArrayList<BigInteger> temp = new ArrayList<BigInteger>();
-        for(BigInteger key: keys){
-            if(!temp.contains(key)){
-                temp.add(key);
-            }
-        }
-        keys = temp;
+        keys.put(uuid,voter.get(uuid).vote(receiver,index));
     }
 
     public int displayKeyCount(){
