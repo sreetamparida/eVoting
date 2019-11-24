@@ -10,16 +10,18 @@
 <body>
 <div class="row">
     #parse("sidebar.vm")
-    <div class="home-bg content col-10">
-        <div class="dashboard-title">
+    <div class="bg-dark content col-10">
+        <div class="dashboard-title text-white">
             <h2> Dashboard </h2>
         </div>
         #foreach( $election in $elections)
-            <div class="card-bg card">
+            <div class="card" style="width: 35%;">
                 <div class="card-body">
-                    <a href="election/$election.title"> <h5 class="panel-body w-50">Title: $election.title </h5> </a>
-                    <p class="panel-body w-50 text-white"> Number of Voters: $election.numvoters </p>
-                    <p class="panel-body w-50 text-white"> Description: $election.description </p>
+                    <div class="home-bg">
+                        <a href="election/$election.title"> <h4 class="panel-body w-50 p-1"> $election.title </h4> </a>
+                    </div>
+                    <p class="panel-body w-50 p-1"> <b> Number of Voters: $election.numvoters </b> </p>
+                    <p class="panel-body w-50 p-1"> <b> Description: $election.description </b> </p>
                 </div>
             </div>
         #end

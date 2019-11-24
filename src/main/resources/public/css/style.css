@@ -1,0 +1,96 @@
+#navbar{
+    position: absolute;
+    width: 100%;
+
+    background-color: black;
+    top: 0;
+    left: 0;
+
+
+
+}
+#navbar button{
+    color: white;
+    text-decoration: none;
+    font-family: 'Ubuntu', sans-serif;
+    background-color: black;
+    padding: 10px 10px;
+    float: left;
+    border: none;
+    outline: none;
+    margin: 0;
+}
+#log{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+body{
+    background-size: cover;
+    background-color: #333333;
+}
+
+#navbar button:hover{
+    background-color: grey;
+    padding: 10px 10px;
+}
+
+.navcont{
+
+    padding: 200px;
+    text-align: center;
+    font-family: 'Mogra',cursive;
+    display: none;
+}
+
+
+#login_form{
+
+    width: 360px;
+    margin:  auto ;
+    padding: 13% 30% ;
+    display: none;
+
+}
+
+#login{
+    position: relative;
+    z-index: 1;
+    background: #FFFFFF;
+    max-width: 360px;
+    margin:  0 auto ;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+
+#login input{
+
+    font-family: 'Mogra', cursive;
+    width: 100%;
+
+    margin: 0 0 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+
+#login p{
+    font-family: 'Ubuntu', sans-serif;
+    font-size: 70%;
+    margin: 15px 0 0;
+    color: grey;
+}
+
+a[href]{
+    font-family: 'Ubuntu', sans-serif;
+    text-decoration: none;
+    color: black;
+}
+#login button{
+    width: 100%;
+    padding: 15px;
+    background-color: black;
+    border: 0;
+    color: white;
+}

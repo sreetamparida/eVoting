@@ -9,10 +9,13 @@
     <link rel="stylesheet" type="text/css" href="css/home.css">
 
 </head>
-<body>
-<div class="container">
-    <div class="card">
+<body class="bg-dark">
+<div class="container bg-dark">
+    <div class="card mx-auto">
         <div class="card-body">
+            <h2 class="special-text text-center">
+                Voter Registration
+            </h2>
             <form action="/registervoter" method="post">
                 <div class="form-group p-1">
                     <label for="fname">First Name</label>
@@ -27,7 +30,9 @@
                     <label for="exampleInputPassword1">Password</label>
                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
                 </div>
-                <button class="btn btn-primary"  type="submit" data-toggle="modal" data-target="#exampleModal"> Register </button>
+                <div class="text-center">
+                    <button class="btn btn-primary"  type="submit"> Register </button>
+                </div>
             </form>
         </div>
     </div>

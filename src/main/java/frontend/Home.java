@@ -26,6 +26,8 @@ public class Home {
     public static Boolean isValidCredentials = true;
     public static Boolean iskeyShareGenerated = false;
     public static String currentUuid = null;
+    public static Boolean isElectionStarted = false;
+    public static Boolean isElectionEnded = false;
 
 
 
@@ -43,6 +45,11 @@ public class Home {
 
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 
+
+        get("/index", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            return new ModelAndView(model, "index.vm");
+        }, new VelocityTemplateEngine());
 
 
         get("/login", (request, response) -> {
@@ -207,6 +214,7 @@ public class Home {
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
             System.out.println(iskeyShareGenerated);
             model.put("iskeyShareGenerated", iskeyShareGenerated);
+            model.put("isElectionStarted", isElectionStarted);
             return new ModelAndView(model, "election_details.vm");
         }, new VelocityTemplateEngine());
 
@@ -223,6 +231,7 @@ public class Home {
             model.put("name", request.queryParams("fname"));
 //            model.put("email", email);
             model.put("password", request.queryParams("password"));
+            model.put("isVoted", "false");
 
             String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
             String uuid = UUID.randomUUID().toString();
@@ -259,7 +268,7 @@ public class Home {
 
             System.out.println(voters);
 //            return new ModelAndView(model, "voter_login.vm");
-            response.redirect("voterlogin");
+            response.redirect("/voterlogin");
             return "ook";
         });
 
@@ -269,6 +278,7 @@ public class Home {
             Gson gson = new Gson();
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
             System.out.println(model);
+            model.put("isElectionStarted", isElectionStarted);
             return new ModelAndView(model, "cast_vote.vm");
         }, new VelocityTemplateEngine());
 
@@ -288,6 +298,14 @@ public class Home {
             System.out.println("Generating Keyshare...");
             dealer.generateSecretShare();
             iskeyShareGenerated = true;
+            response.redirect("/home");
+            return "ok";
+        });
+
+        post("/startelection", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            System.out.println("Starting election...");
+            isElectionStarted = true;
             response.redirect("/home");
             return "ok";
         });
@@ -334,7 +352,8 @@ public class Home {
 
         get("/resultdata", (request, response) -> {
             Map<String, Integer> model = new HashMap<>();
-            model = dealer.displayResult();
+//            model = dealer.displayResult();
+            model.put("ss", 30);
             Gson gson = new GsonBuilder().setLenient().create();
             return gson.toJson(model);
         });
