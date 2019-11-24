@@ -128,15 +128,10 @@ public class Home {
             model1.get("elections").add(model);
 
 
-            String chainBlockDir = Config.chainBlockDir;
-            File file = new File(chainBlockDir);
             BlockChain blockChain = new BlockChain();
             ArrayList<Block> blocks = new ArrayList<Block>();
-            BlockChain localChain;
-            SyncBlock syncBlock = new SyncBlock();
             dealer = new Dealer();
             Wallet coinbase = new Wallet();
-            Block lastBlock;
             dealer.noVoters = Integer.parseInt(request.queryParams("numvoters"));
 
             try {
