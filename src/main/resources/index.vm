@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Login </title>
+    <link href="https://fonts.googleapis.com/css?family=Lato|Mogra|Open+Sans+Condensed:300|Patrick+Hand+SC|Source+Sans+Pro|Ubuntu|Vibur" rel="stylesheet">
+##    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <script type="text/javascript" src="js/index.js"></script>
+</head>
+<body>
+<div id="navbar">
+    <button class="btnav" onclick="openContent('home',this)">Home</button>
+    <button class="btnav" onclick="openContent('about',this)">About us</button>
+    <button class="btnav" onclick="openContent('blog',this)">Blogs</button>
+##    <button id="log" class="btnav" onclick="openContent('login_form',this)">Login</button>
+    <button id="log" class="btnav" onclick="location.href='/login';">Login</button>
+</div>
+##<div class="outer">
+##    <div class="middle">
+##        <div class="inner">
+##            <h1 class="text-white">Vote On !</h1>
+##            <p>Once upon a midnight dreary...</p>
+##        </div>
+##    </div>
+##</div>
+
+<div id="login_form" class="navcont">
+    <div id="login">
+        <form>
+            <input type="text" placeholder="username"><br>
+            <input type="password" placeholder="password"><br>
+            <button>LOGIN</button>
+            <p>Not Registered? <a href="#">Create an Account</a></p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

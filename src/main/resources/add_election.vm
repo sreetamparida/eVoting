@@ -12,9 +12,12 @@
 <body>
 <div class="row">
     #parse("sidebar.vm")
-    <div class="content col-10">
-        <div class="card w-50">
+    <div class="content col-10 bg-dark">
+        <div class="card w-50 mx-auto">
             <div class="card-body">
+                <h2 class="special-text text-center">
+                    Add Election
+                </h2>
                 <form action="/addelection" method="post">
                     <div class="form-group p-1">
                         <label for="title">Title:</label>
@@ -28,7 +31,9 @@
                         <label for="desc">Description:</label>
                         <textarea  class="form-control" id="desc" placeholder="" name="desc"> </textarea>
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
                 </form>
             </div>
         </div>

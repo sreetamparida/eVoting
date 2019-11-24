@@ -17,8 +17,8 @@
 <body>
 <div class="row">
     #parse("sidebar.vm")
-    <div class="content col-10">
-        <div class="card w-50">
+    <div class="content col-10 bg-dark">
+        <div class="card w-50 mx-auto">
             <div class="card-body">
                 <h2 class="special-text text-center">
                     Add Candidate

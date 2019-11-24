@@ -48,6 +48,7 @@ body {
     /*float: none; !* Added *!*/
     margin: 30px; /* Added */
     padding: 20px;
+    border-radius: 15px;
     /*width: 1000px;*/
 }
 .test{
@@ -75,15 +76,15 @@ body {
 }
 
 .home-bg{
-    background-color: powderblue;
+    /*background-color: powderblue;*/
 }
 .card-bg{
     background-color: #333333;
 }
 .dashboard-title{
-    padding: 30px 0 0 50px;
+    padding: 30px 0 0 170px;
 }
 .voter:hover{
-    background-color: aqua;
+    background-color: #90ee90;
     cursor: pointer;
 }

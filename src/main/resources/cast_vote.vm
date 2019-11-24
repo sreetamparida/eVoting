@@ -10,37 +10,31 @@
 
 </head>
 <body>
-<div class="">
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
+    <div class="">
+        <div class="">
+            <div class="card mx-auto w-50">
                 <div class="card-body">
-                    #foreach($candidate in $candidates)
-                    <div class="card p-0">
-                        <div class="card-body text-center voter" uuid="$candidate.uuid">
-##                            <button type="button" class="btn btn-primary p-2"> $candidate.firstname </button>
-                            $candidate.firstname
-                        </div>
+                    <div class="text-center">
+                        <h5> Select you Candidate </h5>
                     </div>
+                    #if ($isElectionStarted == "true")
+                        #foreach($candidate in $candidates)
+                        <div class="card p-0">
+                            <div class="card-body text-center voter" uuid="$candidate.uuid">
+    ##                            <button type="button" class="btn btn-primary p-2"> $candidate.firstname </button>
+                                $candidate.firstname
+                            </div>
+                        </div>
+                        #end
+                    #else
+                        <div class="text-warning">
+                            <h4> The Election is not yet started. Please, Revisit when it begins. </h4>
+                        </div>
                     #end
                 </div>
             </div>
         </div>
-##        <div class="col-md-6">
-##            <div class="card">
-##                <div class="card-body">
-##                    <ul>
-##                        Candidate List
-##                        #foreach($candidate in $candidates)
-##                            <li> $candidate.firstname </li>
-##                        #end
-##                    </ul>
-##                </div>
-##                <button id="vote" class="btn btn-primary"> Vote </button>
-##            </div>
-##        </div>
     </div>
-</div>
 </body>
 <script src="js/vote.js"></script>
 </html>
