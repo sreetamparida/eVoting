@@ -38,19 +38,28 @@ public class Dealer {
             }
             i++;
         }
+        System.out.println("keyshare generated");
+        System.out.println(noVoters);
+        System.out.println(candidate.size());
+        System.out.println(candidateShare.length);
 
     }
 
 
     public void addVoter(String username){
         voter.put(username, new Voter());
-
-        voter.get(username).setKeyShare(candidateShare[voter.size()-1]);
+        System.out.println(username);
+        System.out.println(voter.get(username));
+        System.out.println(voter.size());
+        System.out.println(this.candidateShare.length);
+        voter.get(username).setKeyShare(this.candidateShare[voter.size()-1]);
     }
 
     public void addVote(String r_uuid, String uuid){
         PublicKey receiver = candidate.get(r_uuid).wallet.publicKey;
         int index = candidate.get(r_uuid).index;
+        System.out.println(voter.get(uuid));
+        System.out.println(keys);
         keys.put(uuid,voter.get(uuid).vote(receiver,index));
     }
 

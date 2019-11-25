@@ -21,14 +21,14 @@ public class Home {
     static int flag = 0;
     public static Transaction genesisTransaction;
     public static Dealer dealer;
-    public static Boolean iskeyGenerated = false;
     public static int index = 0;
     public static Boolean isValidCredentials = true;
     public static Boolean iskeyShareGenerated = false;
     public static String currentUuid = null;
     public static Boolean isElectionStarted = false;
     public static Boolean isElectionEnded = false;
-    public static Boolean isError = false;
+    public static Boolean isStart = true;
+
 
 
 
@@ -164,6 +164,11 @@ public class Home {
                 }
                 System.out.println("File Created");
             }else {
+                if(isStart==true){
+                    rollBack();
+                    isStart=false;
+                }
+
                 System.out.println("File  already exists in directory");
             }
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
@@ -339,7 +344,10 @@ public class Home {
             String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
             String uuid = UUID.randomUUID().toString();
             model.put("uuid",uuid);
+            System.out.println(uuid);
+            System.out.println(dealer.candidateShare.length);
             dealer.addVoter(uuid);
+
             BlockChain localChain = syncBlock.syncLocal();
             Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
             Block block = new Block(lastBlock.getHash(), lastBlock.getHeight());

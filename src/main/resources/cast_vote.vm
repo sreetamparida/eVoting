@@ -17,7 +17,7 @@
 
                     #if ($isElectionStarted == "true")
                         <div class="text-center">
-                            <h5> Select you Candidate </h5>
+                            <h5> Select your Candidate </h5>
                         </div>
                         #foreach($candidate in $candidates)
                         <div class="card p-0">
