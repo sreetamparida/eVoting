@@ -28,6 +28,7 @@ public class Home {
     public static String currentUuid = null;
     public static Boolean isElectionStarted = false;
     public static Boolean isElectionEnded = false;
+    public static Boolean isError = false;
 
 
 
@@ -209,13 +210,27 @@ public class Home {
 
         get("/election/:name", (request, response) -> {
             String path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
-            Gson gson = new Gson();
-            HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
-            System.out.println(iskeyShareGenerated);
-            model.put("iskeyShareGenerated", iskeyShareGenerated);
-            model.put("isElectionStarted", isElectionStarted);
-            return new ModelAndView(model, "election_details.vm");
+
+            File file = new File(path);
+            if(file.exists()){
+                BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+                Gson gson = new Gson();
+                HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
+                System.out.println(iskeyShareGenerated);
+                model.put("iskeyShareGenerated", iskeyShareGenerated);
+                model.put("isElectionStarted", isElectionStarted);
+                model.put("isElectionEnded", isElectionEnded);
+                model.remove("error");
+                return new ModelAndView(model, "election_details.vm");
+            }else{
+                HashMap<String, Object> model = new HashMap<>();
+                model.put("iskeyShareGenerated", iskeyShareGenerated);
+                model.put("isElectionStarted", isElectionStarted);
+                model.put("isElectionEnded", isElectionEnded);
+                model.put("error", "No Candidates added");
+                return new ModelAndView(model, "election_details.vm");
+            }
+
         }, new VelocityTemplateEngine());
 
         get("/registervoter", (request, response) -> {
@@ -310,6 +325,14 @@ public class Home {
             return "ok";
         });
 
+        post("/endelection", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+            System.out.println("Ending election...");
+            isElectionEnded = true;
+            response.redirect("/home");
+            return "ok";
+        });
+
         get("/voterlogin", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
             model.put("isValidCredentials", isValidCredentials);
@@ -345,17 +368,28 @@ public class Home {
 
 
         get("/result", (request, response) -> {
-            Map<String, Integer> model = new HashMap<>();
+            Map<String, Object> model = new HashMap<>();
 //            model = dealer.displayResult();
+            model.put("isElectionEnded", isElectionEnded);
             return new ModelAndView(model,"result.vm");
         }, new VelocityTemplateEngine());
 
         get("/resultdata", (request, response) -> {
             Map<String, Integer> model = new HashMap<>();
-//            model = dealer.displayResult();
-            model.put("ss", 30);
+            model = dealer.displayResult();
+//            model.put("ss", 30);
+//            model.put("ss1", 30);
+//            model.put("ss2", 30);
+//            model.put("ss3", 30);
             Gson gson = new GsonBuilder().setLenient().create();
             return gson.toJson(model);
+        });
+
+
+        get("/rollback", (request, response) -> {
+            System.out.println("rollback.....");
+            response.redirect("/home");
+            return "ok";
         });
     }
 }

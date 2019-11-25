@@ -64,6 +64,24 @@
                 #end
             </div>
         </div>
+        <div class="card w-50 mx-auto">
+            <div class="card-body">
+                #if ($isElectionEnded=="false")
+                    <form action="/endelection" method="post">
+                        <div class="form-group p-2 text-danger">
+                            End Election.
+                        </div>
+                        <div class="form-group p-1 text-center">
+                            <button type="submit" class="btn btn-primary"> End Election </button>
+                        </div>
+                    </form>
+                #else
+                    <div class="p-2">
+                        <h4 class="text-success"> Election has been Ended, You can view the results now ! </h4>
+                    </div>
+                #end
+            </div>
+        </div>
     </div>
 </div>
 </body>

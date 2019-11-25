@@ -13,10 +13,23 @@
 ##    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div class="row">
-    #parse("sidebar.vm")
-    <div class="content col-10">
-        <canvas id="myChart"></canvas>
+<div class="container">
+    <div class="row mx-auto">
+        #parse("index.vm")
+        #if ($isElectionEnded == "true")
+            <div class="content col-10">
+                <canvas id="myChart" width="450px" height="250px" style="padding-top: 100px"></canvas>
+            </div>
+            <div class="d-none" id="count">
+                <h5 id="votecount"> Election is valid.  </h5>
+            </div>
+        #else
+        <div class="mx-auto">
+            <div class="container mx-auto p-5">
+                <h5> Result is not yet declared ! </h5>
+            </div>
+        </div>
+        #end
     </div>
 </div>
 </body>

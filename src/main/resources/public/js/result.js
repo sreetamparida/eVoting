@@ -8,8 +8,8 @@ var chart = new Chart(ctx, {
         labels: [],
         datasets: [{
             label: 'No of votes',
-            backgroundColor: 'rgb(255, 99, 132)',
-            borderColor: 'rgb(255, 99, 132)',
+            backgroundColor: '#90ee90',
+            borderColor: '#90ee90',
             data: []
         }]
     },
@@ -45,13 +45,18 @@ $.ajax({
 }).done(function(data) {
     console.log(data)
     data = JSON.parse(data);
-    var keys = []
-    var vals = []
+    var keys = [];
+    var vals = [];
+    var vote_count = 0;
     for (var key in data){
-        // keys.push(key);
-        // vals.push(data[key])
-        chart.data.labels.push(key)
-        chart.data.datasets[0].data.push(data[key]);
+        if (key != "keyCount"){
+            vote_count += data[key];
+            chart.data.labels.push(key)
+            chart.data.datasets[0].data.push(data[key]);
+        }
+    }
+    if(vote_count == data["keyCount"]){
+        $("#count").removeClass("d-none")
     }
     chart.update()
 });
