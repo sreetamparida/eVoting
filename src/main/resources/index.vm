@@ -25,16 +25,16 @@
 ##    </div>
 ##</div>
 
-<div id="login_form" class="navcont">
-    <div id="login">
-        <form>
-            <input type="text" placeholder="username"><br>
-            <input type="password" placeholder="password"><br>
-            <button>LOGIN</button>
-            <p>Not Registered? <a href="#">Create an Account</a></p>
-        </form>
-    </div>
-</div>
+##<div id="login_form" class="navcont">
+##    <div id="login">
+##        <form>
+##            <input type="text" placeholder="username"><br>
+##            <input type="password" placeholder="password"><br>
+##            <button>LOGIN</button>
+##            <p>Not Registered? <a href="#">Create an Account</a></p>
+##        </form>
+##    </div>
+##</div>
 
 </body>
 </html>

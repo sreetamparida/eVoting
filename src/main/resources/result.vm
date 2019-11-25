@@ -15,10 +15,10 @@
 <body>
 <div class="container">
     <div class="row mx-auto">
-    ##    #parse("sidebar.vm")
+        #parse("index.vm")
         #if ($isElectionEnded == "true")
             <div class="content col-10">
-                <canvas id="myChart" width="450px" height="250px"></canvas>
+                <canvas id="myChart" width="450px" height="250px" style="padding-top: 100px"></canvas>
             </div>
             <div class="d-none" id="count">
                 <h5 id="votecount"> Election is valid.  </h5>
