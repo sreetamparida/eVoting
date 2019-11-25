@@ -20,7 +20,7 @@
     <div class="row no-gutter">
         <!-- The image half -->
         <div class="col-md-6 d-none d-md-flex bg-image">
-            <img src="public/img/background.jpg">
+            <img src="../img/background.jpg">
         </div>
         <!-- The content half -->
         <div class="col-md-6 bg-light">
