@@ -1,1 +1,1 @@
-web: java -cp target/eVoting-1.0-SNAPSHOT-jar-with-dependencies.jar com.evoting.Home
+web: java -cp target/eVoting-1.0-SNAPSHOT.jar:target/dependency/* com.evoting.Home
