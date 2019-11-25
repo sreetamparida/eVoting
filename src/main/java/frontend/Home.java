@@ -36,6 +36,54 @@ public class Home {
         return electionid++;
     }
 
+    public static void rollBack() throws FileNotFoundException {
+        index = 0;
+        String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
+
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+        Gson gson = new Gson();
+        HashMap<String, ArrayList<Map<String,Object>>> electionModel = gson.fromJson(bufferedReader, HashMap.class);
+
+        BlockChain blockChain = new BlockChain();
+        ArrayList<Block> blocks = new ArrayList<Block>();
+        dealer = new Dealer();
+        Wallet coinbase = new Wallet();
+        dealer.noVoters = Integer.parseInt((String)electionModel.get("elections").get(0).get("numvoters"));
+
+        try {
+            Block genesis = new Block().createGenesisBlock();
+            Float coin = Float.parseFloat((String)electionModel.get("elections").get(0).get("numvoters"));
+
+            generateGenesis(blockChain, blocks, coinbase, genesis, coin);
+
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
+        bufferedReader = new BufferedReader(new FileReader(path));
+        HashMap<String, ArrayList<Map<String,String>>> candidateModel = gson.fromJson(bufferedReader, HashMap.class);
+        for(Map m: candidateModel.get("candidates")){
+            dealer.candidate.put((String) m.get("uuid"), new Candidate(index++));
+            dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("fname");
+        }
+
+
+    }
+
+    public static void generateGenesis(BlockChain blockChain, ArrayList<Block> blocks, Wallet coinbase, Block genesis, Float coin) throws IOException {
+        genesisTransaction = new Transaction(coinbase.publicKey, dealer.wallet.publicKey, coin, null);
+        genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
+        genesisTransaction.transactionId = "0"; //manually set the transaction id
+        genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
+        blockChain.UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
+        genesis.addTransaction(genesisTransaction);
+        blockChain.addBlock(genesis, true);
+        blocks.add(genesis);
+    }
+
 
     public static void main(String[] args) {
 
@@ -125,14 +173,7 @@ public class Home {
                 Block genesis = new Block().createGenesisBlock();
                 Float coin = Float.parseFloat(request.queryParams("numvoters"));
 
-                genesisTransaction = new Transaction(coinbase.publicKey, dealer.wallet.publicKey, coin, null);
-                genesisTransaction.generateSignature(coinbase.privateKey);	 //manually sign the genesis transaction
-                genesisTransaction.transactionId = "0"; //manually set the transaction id
-                genesisTransaction.outputs.add(new TransactionOutput(genesisTransaction.receiver, genesisTransaction.value, genesisTransaction.transactionId)); //manually add the Transactions Output
-                blockChain.UTXOs.put(genesisTransaction.outputs.get(0).id, genesisTransaction.outputs.get(0));
-                genesis.addTransaction(genesisTransaction);
-                blockChain.addBlock(genesis, true);
-                blocks.add(genesis);
+                generateGenesis(blockChain, blocks, coinbase, genesis, coin);
 
 
             }
@@ -387,6 +428,7 @@ public class Home {
 
 
         get("/rollback", (request, response) -> {
+            rollBack();
             System.out.println("rollback.....");
             response.redirect("/home");
             return "ok";
