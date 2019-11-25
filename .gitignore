@@ -2,8 +2,11 @@
 /target/classes/frontend/Home.class
 /.idea/*
 /eVoting.iml
-*/target/**
+/target/**
 .DS_Store
 .classpath
-*/.settings/**
+/.settings/**
 .project
+/.vscode/**
+target
+.vscode

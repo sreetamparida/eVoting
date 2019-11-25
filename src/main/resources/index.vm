@@ -18,8 +18,8 @@
     <button id="reg" class="btnav" onclick="location.href='/registervoter';">Register</button>
 </div>
 <div>
-    <h1 class="center header"> Vote On ! </h1> <br/>
-    <p class="center tagline"> Blockchain based e-Voting system. </p>
+    <h1 class="center header"> Sharvot </h1> <br/>
+    <p class="center tagline"> A secure evoting platform based on blockchain. </p>
 </div>
 
 </body>
