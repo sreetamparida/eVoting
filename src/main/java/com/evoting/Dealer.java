@@ -59,8 +59,9 @@ public class Dealer {
         PublicKey receiver = candidate.get(r_uuid).wallet.publicKey;
         int index = candidate.get(r_uuid).index;
         System.out.println(voter.get(uuid));
-        System.out.println(keys);
+
         keys.put(uuid,voter.get(uuid).vote(receiver,index));
+        System.out.println(keys);
     }
 
     public int displayKeyCount(){
@@ -70,9 +71,12 @@ public class Dealer {
     public HashMap displayResult(){
         HashMap<String, Integer> votes = new HashMap<String, Integer>();
         for (String s: candidate.keySet()) {
+            System.out.println(candidate.get(s).name);
             votes.put(candidate.get(s).name, (int) candidate.get(s).wallet.getBalance());
         }
         votes.put("keyCount", keys.size());
+        System.out.println(candidate.keySet());
+        System.out.println(votes);
         return votes;
     }
 

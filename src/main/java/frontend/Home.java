@@ -25,6 +25,7 @@ public class Home {
     public static Boolean isValidCredentials = true;
     public static Boolean iskeyShareGenerated = false;
     public static String currentUuid = null;
+    public static String currentEmail = null;
     public static Boolean isElectionStarted = false;
     public static Boolean isElectionEnded = false;
     public static Boolean isStart = true;
@@ -36,7 +37,7 @@ public class Home {
         return electionid++;
     }
 
-    public static void rollBack() throws FileNotFoundException {
+    public static void rollBack() throws IOException {
         index = 0;
         String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
         File electionFile = new File(path);
@@ -71,8 +72,9 @@ public class Home {
                 HashMap<String, ArrayList<Map<String,String>>> candidateModel = gson.fromJson(bufferedReader, HashMap.class);
                 for(Map m: candidateModel.get("candidates")){
                     dealer.candidate.put((String) m.get("uuid"), new Candidate(index++));
-                    dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("fname");
+                    dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("firstname");
                 }
+
 
                 path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
                 File voterFile = new File(path);
@@ -86,6 +88,7 @@ public class Home {
                     Map<String,String> m;
                     for (String email: voterModel.keySet()){
                         m = voterModel.get(email);
+                        voterModel.get(email).put("isVoted","false");
                         dealer.addVoter(m.get("uuid"));
                         BlockChain localChain = syncBlock.syncLocal();
                         Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
@@ -93,6 +96,12 @@ public class Home {
                         block.addTransaction(dealer.wallet.sendFunds(dealer.voter.get(m.get("uuid")).wallet.publicKey, 1f, false));
 
                     }
+                    try (Writer writer = new FileWriter(path)) {
+                        gson = new GsonBuilder().setLenient().create();
+                        gson.toJson(voterModel, writer);
+                    }
+
+
                 }
 
             }
@@ -337,7 +346,7 @@ public class Home {
             Map<String, Object> model = new HashMap<>();
             String email = request.queryParams("email");
             model.put("name", request.queryParams("fname"));
-//            model.put("email", email);
+            model.put("email", email);
             model.put("password", request.queryParams("password"));
             model.put("isVoted", "false");
 
@@ -388,20 +397,52 @@ public class Home {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, Object> model = gson.fromJson(bufferedReader, HashMap.class);
-            System.out.println(model);
             model.put("isElectionStarted", isElectionStarted);
+
+            path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+            bufferedReader = new BufferedReader(new FileReader(path));
+            gson = new Gson();
+            HashMap<String, Map<String, String>> voters = gson.fromJson(bufferedReader, HashMap.class);
+
+
+            if(!voters.get(currentEmail).get("isVoted").equals("false")) {
+                return new ModelAndView(model,"voting_complete.vm");
+            }
+
             return new ModelAndView(model, "cast_vote.vm");
         }, new VelocityTemplateEngine());
 
 
         post("/vote", (request, response) -> {
-            System.out.println("Voted !");
             String candidate_uuid = request.queryParams("candidate_uuid");
             String voter_uuid = currentUuid;
-            dealer.addVote(candidate_uuid,voter_uuid);
+            String path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
+            Gson gson = new Gson();
+            HashMap<String, Map<String, String>> voters = gson.fromJson(bufferedReader, HashMap.class);
+
+            System.out.println(currentEmail);
+            System.out.println(voters);
+
+            if(voters.get(currentEmail).get("isVoted").equals("false")) {
+                voters.get(currentEmail).put("isVoted", "true");
+                System.out.println(candidate_uuid+"-----------------");
+                dealer.addVote(candidate_uuid,voter_uuid);
+                System.out.println("voted--------------------");
+                try (Writer writer = new FileWriter(path)) {
+                    gson = new GsonBuilder().setLenient().create();
+                    gson.toJson(voters, writer);
+                }
+            }
             System.out.println(dealer.displayKeyCount());
             return "ok";
         });
+
+        get("/votecomplete", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            return new ModelAndView(model, "voting_complete.vm");
+        }, new VelocityTemplateEngine());
 
 
         post("/generatekeyshare", (request, response) -> {
@@ -453,6 +494,11 @@ public class Home {
                 if(password.equals(tempemail.get("password"))){
                     isValidCredentials = true;
                     currentUuid = tempemail.get("uuid");
+                    currentEmail = tempemail.get("email");
+                    if(isElectionEnded){
+                        response.redirect("/result");
+                        return "ok";
+                    }
                     response.redirect("/vote");
                 }else{
                     isValidCredentials = false;
