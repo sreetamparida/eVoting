@@ -2,4 +2,4 @@
 /target/classes/frontend/Home.class
 /.idea/*
 /eVoting.iml
-/target
+*/target/**
