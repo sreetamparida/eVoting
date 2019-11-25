@@ -41,7 +41,7 @@
                     </form>
                 #else
                     <div class="p-2">
-                        <h4 class="text-success"> Key Share has been Successfully generated ! </h4>
+                        <h4 class="text-success"> Key Share has been successfully Generated ! </h4>
                     </div>
                 #end
             </div>
@@ -51,7 +51,7 @@
                 #if ($isElectionStarted=="false")
                     <form action="/startelection" method="post">
                         <div class="form-group p-2 text-danger">
-                            Before strting the Election, Please, make sure Shamir's key has been generated.
+                            Before starting the Election, Please, make sure Shamir's key has been generated.
                         </div>
                         <div class="form-group p-1 text-center">
                             <button type="submit" class="btn btn-primary"> Start Election </button>

@@ -10,32 +10,17 @@
 
 </head>
 <body>
+<div class="">
     <div class="">
-        <div class="">
-            <div class="card mx-auto w-50">
-                <div class="card-body">
-
-                    #if ($isElectionStarted == "true")
-                        <div class="text-center">
-                            <h5> Select you Candidate </h5>
-                        </div>
-                        #foreach($candidate in $candidates)
-                        <div class="card p-0">
-                            <div class="card-body text-center voter" uuid="$candidate.uuid">
-    ##                            <button type="button" class="btn btn-primary p-2"> $candidate.firstname </button>
-                                $candidate.firstname
-                            </div>
-                        </div>
-                        #end
-                    #else
-                        <div class="text-warning">
-                            <h4> The Election is not yet started. Please, Revisit when it begins. </h4>
-                        </div>
-                    #end
+        <div class="card mx-auto w-50">
+            <div class="card-body">
+                <div class="text-warning">
+                    <h4> Registration has not been started yet. Please, revisit once it begins.</h4>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 <script src="js/vote.js"></script>
 </html>

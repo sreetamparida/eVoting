@@ -44,7 +44,7 @@ public class Home {
         if(electionFile.exists()){
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
-            HashMap<String, ArrayList<Map<String,Object>>> electionModel = gson.fromJson(bufferedReader, HashMap.class);
+            HashMap<String, ArrayList<Map<String, Object>>> electionModel = gson.fromJson(bufferedReader, HashMap.class);
 
             BlockChain blockChain = new BlockChain();
             ArrayList<Block> blocks = new ArrayList<Block>();
@@ -72,6 +72,27 @@ public class Home {
                 for(Map m: candidateModel.get("candidates")){
                     dealer.candidate.put((String) m.get("uuid"), new Candidate(index++));
                     dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("fname");
+                }
+
+                path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+                File voterFile = new File(path);
+
+                if(voterFile.exists()){
+                    dealer.generateSecretShare();
+                    iskeyShareGenerated = true;
+                    bufferedReader = new BufferedReader(new FileReader(path));
+                    SyncBlock syncBlock = new SyncBlock();
+                    HashMap<String, Map<String,String>> voterModel = gson.fromJson(bufferedReader, HashMap.class);
+                    Map<String,String> m;
+                    for (String email: voterModel.keySet()){
+                        m = voterModel.get(email);
+                        dealer.addVoter(m.get("uuid"));
+                        BlockChain localChain = syncBlock.syncLocal();
+                        Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
+                        Block block = new Block(lastBlock.getHash(), lastBlock.getHeight());
+                        block.addTransaction(dealer.wallet.sendFunds(dealer.voter.get(m.get("uuid")).wallet.publicKey, 1f, false));
+
+                    }
                 }
 
             }
@@ -284,11 +305,27 @@ public class Home {
 
         }, new VelocityTemplateEngine());
 
+
+
         get("/registervoter", (request, response) -> {
             Map<String, Object> model = new HashMap<>();
-
+            System.out.println(iskeyShareGenerated);
+            if(iskeyShareGenerated==false){
+                return new ModelAndView(model, "wait.vm");
+            }
             return new ModelAndView(model, "register_voter.vm");
         }, new VelocityTemplateEngine());
+
+
+
+        get("/wait", (request, response) -> {
+            Map<String, Object> model = new HashMap<>();
+
+            return new ModelAndView(model, "wait.vm");
+        }, new VelocityTemplateEngine());
+
+
+
 
         post("/registervoter", (request, response) -> {
 
