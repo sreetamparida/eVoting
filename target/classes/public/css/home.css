@@ -2,15 +2,7 @@ body {
     /*padding-top: 56px;*/
 }
 
-.sticky-offset {
-    /*top: 56px;*/
-}
-
-#body-row {
-    margin-left:0;
-    margin-right:0;
-}
-#sidebar-container {
+.sidebar-container {
     min-height: 100vh;
     background-color: #333;
     padding-right: 10px;
@@ -19,9 +11,6 @@ body {
 /* Sidebar sizes when expanded and expanded */
 .sidebar-expanded {
     width: 230px;
-}
-.sidebar-collapsed {
-    width: 60px;
 }
 
 /* Menu item*/
@@ -37,20 +26,6 @@ body {
 }
 .sidebar-submenu {
     font-size: 0.9rem;
-}
-
-/* Separators */
-.sidebar-separator-title {
-    background-color: #333;
-    height: 35px;
-}
-.sidebar-separator {
-    background-color: #333;
-    height: 25px;
-}
-.logo-separator {
-    background-color: #333;
-    height: 60px;
 }
 
 /* Closed submenu icon */
@@ -73,6 +48,7 @@ body {
     /*float: none; !* Added *!*/
     margin: 30px; /* Added */
     padding: 20px;
+    border-radius: 15px;
     /*width: 1000px;*/
 }
 .test{
@@ -97,4 +73,18 @@ body {
 
 .modal-footer .btn-group:last-child > button {
     border-right: 0;
+}
+
+.home-bg{
+    /*background-color: powderblue;*/
+}
+.card-bg{
+    background-color: #333333;
+}
+.dashboard-title{
+    padding: 30px 0 0 170px;
+}
+.voter:hover{
+    background-color: #90ee90;
+    cursor: pointer;
 }
