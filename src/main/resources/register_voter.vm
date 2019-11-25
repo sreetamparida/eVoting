@@ -9,8 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/home.css">
 
 </head>
-<body class="bg-dark">
-<div class="container bg-dark">
+<body class="bg">
+<div class="container bg">
     <div class="card mx-auto">
         <div class="card-body">
             <h2 class="special-text text-center">

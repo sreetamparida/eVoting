@@ -9,9 +9,8 @@
     <link rel="stylesheet" type="text/css" href="css/home.css">
 
 </head>
-<body>
-    <div class="">
-        <div class="">
+<body class="bg-dark">
+        <div class="bg-dark">
             <div class="card mx-auto w-50">
                 <div class="card-body">
 
@@ -34,7 +33,6 @@
                     #end
                 </div>
             </div>
-        </div>
     </div>
 </body>
 <script src="js/vote.js"></script>

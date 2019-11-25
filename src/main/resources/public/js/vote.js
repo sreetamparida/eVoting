@@ -7,7 +7,7 @@ $(document).ready(function () {
                 url: "/vote",
                 data: data,
             }).done(function(data) {
-                alert("You have voted !" + data )
+                alert("You have voted !")
             });
         }
     )

@@ -26,6 +26,12 @@
     right: 0px;
     padding-left: 10px;
 }
+#adm{
+    position: absolute;
+    top: 0px;
+    left: 10px;
+    padding-left: 10px;
+}
 
 #reg {
     position: absolute;
@@ -100,4 +106,20 @@ a[href]{
     background-color: black;
     border: 0;
     color: white;
+}
+.center {
+    margin: 0;
+    position: absolute;
+    left: 45%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+}
+.header{
+    top: 40%;
+    font-size: 48px;
+}
+.tagline{
+    top: 45%;
 }
