@@ -2,7 +2,7 @@
     position: absolute;
     width: 100%;
 
-    background-color: black;
+    background-color: #333333;
     top: 0;
     left: 0;
 
@@ -13,7 +13,7 @@
     color: white;
     text-decoration: none;
     font-family: 'Ubuntu', sans-serif;
-    background-color: black;
+    background-color: #333333;
     padding: 10px 10px;
     float: left;
     border: none;
@@ -24,6 +24,13 @@
     position: absolute;
     top: 0px;
     right: 0px;
+    padding-left: 10px;
+}
+
+#reg {
+    position: absolute;
+    top: 0px;
+    right: 50px;
 }
 
 body{

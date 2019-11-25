@@ -10,11 +10,12 @@
 </head>
 <body>
 <div id="navbar">
-    <button class="btnav" onclick="openContent('home',this)">Home</button>
-    <button class="btnav" onclick="openContent('about',this)">About us</button>
-    <button class="btnav" onclick="openContent('blog',this)">Blogs</button>
+##    <button class="btnav" onclick="openContent('home',this)">Home</button>
+##    <button class="btnav" onclick="openContent('about',this)">About us</button>
+##    <button class="btnav" onclick="openContent('blog',this)">Blogs</button>
 ##    <button id="log" class="btnav" onclick="openContent('login_form',this)">Login</button>
     <button id="log" class="btnav" onclick="location.href='/login';">Login</button>
+    <button id="reg" class="btnav" onclick="location.href='/registervoter';">Register</button>
 </div>
 ##<div class="outer">
 ##    <div class="middle">
