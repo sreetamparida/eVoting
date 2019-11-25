@@ -384,5 +384,12 @@ public class Home {
             Gson gson = new GsonBuilder().setLenient().create();
             return gson.toJson(model);
         });
+
+
+        get("/rollback", (request, response) -> {
+            System.out.println("rollback.....");
+            response.redirect("/home");
+            return "ok";
+        });
     }
 }
