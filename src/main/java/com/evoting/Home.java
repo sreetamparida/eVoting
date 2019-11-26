@@ -1,4 +1,4 @@
-package frontend;
+package com.evoting;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -146,6 +146,16 @@ public class Home {
 
         staticFileLocation("/public");
         SyncBlock syncBlock = new SyncBlock();
+
+        ProcessBuilder process = new ProcessBuilder();
+        Integer port;
+
+        if (process.environment().get("PORT") != null) {
+            port = Integer.parseInt(process.environment().get("PORT"));
+        } else {
+            port = 4567;
+        }
+        port(port);
 
 
 

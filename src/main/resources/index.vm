@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> VoteOn </title>
+    <title> Sharvot </title>
     <link href="https://fonts.googleapis.com/css?family=Lato|Mogra|Open+Sans+Condensed:300|Patrick+Hand+SC|Source+Sans+Pro|Ubuntu|Vibur" rel="stylesheet">
 ##    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
@@ -18,8 +18,8 @@
     <button id="reg" class="btnav" onclick="location.href='/registervoter';">Register</button>
 </div>
 <div>
-    <h1 class="center header"> Vote On ! </h1> <br/>
-    <p class="center tagline"> Blockchain based e-Voting system. </p>
+    <h1 class="center header"> SHARVOT </h1> <br/>
+    <p class="center tagline"> Blockchain based e-Voting Platform </p>
 </div>
 
 </body>
