@@ -42,74 +42,92 @@ public class Home {
         String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
         File electionFile = new File(path);
 
+
         if(electionFile.exists()){
             BufferedReader bufferedReader = new BufferedReader(new FileReader(path));
             Gson gson = new Gson();
             HashMap<String, ArrayList<Map<String, Object>>> electionModel = gson.fromJson(bufferedReader, HashMap.class);
+            if(electionModel.get("elections").size()!=0){
+                BlockChain blockChain = new BlockChain();
+                ArrayList<Block> blocks = new ArrayList<Block>();
+                dealer = new Dealer();
+                Wallet coinbase = new Wallet();
+                dealer.noVoters = Integer.parseInt((String)electionModel.get("elections").get(0).get("numvoters"));
 
-            BlockChain blockChain = new BlockChain();
-            ArrayList<Block> blocks = new ArrayList<Block>();
-            dealer = new Dealer();
-            Wallet coinbase = new Wallet();
-            dealer.noVoters = Integer.parseInt((String)electionModel.get("elections").get(0).get("numvoters"));
+                try {
+                    Block genesis = new Block().createGenesisBlock();
+                    Float coin = Float.parseFloat((String)electionModel.get("elections").get(0).get("numvoters"));
 
-            try {
-                Block genesis = new Block().createGenesisBlock();
-                Float coin = Float.parseFloat((String)electionModel.get("elections").get(0).get("numvoters"));
-
-                generateGenesis(blockChain, blocks, coinbase, genesis, coin);
+                    generateGenesis(blockChain, blocks, coinbase, genesis, coin);
 
 
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
-            File candidateFile = new File(path);
-            if(candidateFile.exists()){
-                bufferedReader = new BufferedReader(new FileReader(path));
-                HashMap<String, ArrayList<Map<String,String>>> candidateModel = gson.fromJson(bufferedReader, HashMap.class);
-                for(Map m: candidateModel.get("candidates")){
-                    dealer.candidate.put((String) m.get("uuid"), new Candidate(index++));
-                    dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("firstname");
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
                 }
 
-
-                path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
-                File voterFile = new File(path);
-
-                if(voterFile.exists()){
-                    dealer.generateSecretShare();
-                    iskeyShareGenerated = true;
+                path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
+                File candidateFile = new File(path);
+                if(candidateFile.exists()){
                     bufferedReader = new BufferedReader(new FileReader(path));
-                    SyncBlock syncBlock = new SyncBlock();
-                    HashMap<String, Map<String,String>> voterModel = gson.fromJson(bufferedReader, HashMap.class);
-                    Map<String,String> m;
-                    for (String email: voterModel.keySet()){
-                        m = voterModel.get(email);
-                        voterModel.get(email).put("isVoted","false");
-                        dealer.addVoter(m.get("uuid"));
-                        BlockChain localChain = syncBlock.syncLocal();
-                        Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
-                        Block block = new Block(lastBlock.getHash(), lastBlock.getHeight());
-                        block.addTransaction(dealer.wallet.sendFunds(dealer.voter.get(m.get("uuid")).wallet.publicKey, 1f, false));
-
-                    }
-                    try (Writer writer = new FileWriter(path)) {
-                        gson = new GsonBuilder().setLenient().create();
-                        gson.toJson(voterModel, writer);
+                    HashMap<String, ArrayList<Map<String,String>>> candidateModel = gson.fromJson(bufferedReader, HashMap.class);
+                    for(Map m: candidateModel.get("candidates")){
+                        dealer.candidate.put((String) m.get("uuid"), new Candidate(index++));
+                        dealer.candidate.get((String) m.get("uuid")).name = (String)m.get("firstname");
                     }
 
+
+                    path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+                    File voterFile = new File(path);
+
+                    if(voterFile.exists()){
+                        dealer.generateSecretShare();
+                        iskeyShareGenerated = true;
+                        bufferedReader = new BufferedReader(new FileReader(path));
+                        SyncBlock syncBlock = new SyncBlock();
+                        HashMap<String, Map<String,String>> voterModel = gson.fromJson(bufferedReader, HashMap.class);
+                        Map<String,String> m;
+                        for (String email: voterModel.keySet()){
+                            m = voterModel.get(email);
+                            voterModel.get(email).put("isVoted","false");
+                            dealer.addVoter(m.get("uuid"));
+                            BlockChain localChain = syncBlock.syncLocal();
+                            Block lastBlock = localChain.blocks.get(localChain.blocks.size() - 1);
+                            Block block = new Block(lastBlock.getHash(), lastBlock.getHeight());
+                            block.addTransaction(dealer.wallet.sendFunds(dealer.voter.get(m.get("uuid")).wallet.publicKey, 1f, false));
+
+                        }
+                        try (Writer writer = new FileWriter(path)) {
+                            gson = new GsonBuilder().setLenient().create();
+                            gson.toJson(voterModel, writer);
+                        }
+
+
+                    }
 
                 }
+            };
 
-            }
         }
 
+    }
 
-
-
+    public static void flush(){
+        String path = System.getProperty("user.dir")+"/src/main/resources/Election/Election.json";
+        File file = new File(path);
+        if(file.exists()){
+            file.delete();
+            path = System.getProperty("user.dir")+"/src/main/resources/Election/Candidates.json";
+            file = new File(path);
+            if(file.exists()){
+                file.delete();
+            }
+            path = System.getProperty("user.dir") + "/src/main/resources/Election/Voters.json";
+            file = new File(path);
+            if(file.exists()){
+                file.delete();
+            }
+        }
     }
 
     public static void generateGenesis(BlockChain blockChain, ArrayList<Block> blocks, Wallet coinbase, Block genesis, Float coin) throws IOException {
@@ -535,6 +553,20 @@ public class Home {
             }
             catch(Exception e){
                 System.out.println("rollback.....");
+                response.redirect("/home");
+                return "ok";
+            }
+            response.redirect("/home");
+            return "ok";
+        });
+
+        get("/flush", (request, response) -> {
+            try{
+                flush();
+                System.out.println("flushed...");
+            }
+            catch(Exception e){
+                System.out.println("flushed...");
                 response.redirect("/home");
                 return "ok";
             }
